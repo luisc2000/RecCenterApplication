@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
     private Button eLogin;
     private TextView eRegister;
 
-//    Credentials credentials = new Credentials("name", "pass");
     private boolean isValid = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
