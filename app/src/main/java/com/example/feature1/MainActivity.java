@@ -65,8 +65,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                             else
                             {
-                                Toast.makeText(MainActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                                Toast.makeText(MainActivity.this, "Registration failed: " + task.getException(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "Login failed: " + task.getException(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -74,16 +73,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    // validates a user in login page
-//    private boolean validate(String name, String pass)
-//    {
-//        if(RegistrationActivity.credentials != null)
-//        {
-//            if(name.equals(RegistrationActivity.credentials.getUserName()) && pass.equals(RegistrationActivity.credentials.getPassword()))
-//            {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
 }
