@@ -56,6 +56,7 @@ public class MapPage extends AppCompatActivity {
                 finish();
             }
         });
+//        startActivity(new Intent(getApplicationContext(), MapsFragment.class));
 
 
     }
