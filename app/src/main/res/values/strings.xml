@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Feature1</string>
+    <color name="White">#FFFFFF</color>
 </resources>
