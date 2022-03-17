@@ -58,6 +58,15 @@ public class MapPage extends AppCompatActivity {
         });
 //        startActivity(new Intent(getApplicationContext(), MapsFragment.class));
 
+        ///Alex's booking button
+        Button myButton = (Button) findViewById(R.id.bookingButton);
+        myButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                setContentView(R.layout.activity_summary);
+                Intent nextScreen = new Intent(MapPage.this, CopyOfMainActivity.class);
+                startActivity(nextScreen);
+            }
+        });
 
     }
 }
