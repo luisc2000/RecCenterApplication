@@ -44,10 +44,121 @@ public class CopyOfMainActivity extends AppCompatActivity
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         userID = fAuth.getCurrentUser().getUid();
+
+        //Building the gyms section of the database
         DocumentReference gymsCollection = fStore.collection("gyms").document(userID);
+        //Lyon center
         Map<String, Object> lyonCenter = new HashMap<>();
         lyonCenter.put("name", "Lyon Center");
-        lyonCenter.put("hours", "0700 - 0800");
+        lyonCenter.put("0600-0659", "0");
+        lyonCenter.put("0700-0759", "0");
+        lyonCenter.put("0800-0859", "0");
+        lyonCenter.put("0900-0959", "0");
+        lyonCenter.put("1000-1059", "0");
+        lyonCenter.put("1100-1159", "0");
+        lyonCenter.put("1200-1259", "0");
+        lyonCenter.put("1300-1359", "0");
+        lyonCenter.put("1400-1459", "0");
+        lyonCenter.put("1500-1559", "0");
+        lyonCenter.put("1600-1659", "0");
+        lyonCenter.put("1700-1759", "0");
+        lyonCenter.put("1800-1859", "0");
+        lyonCenter.put("1900-1959", "0");
+        lyonCenter.put("2000-2059", "0");
+        lyonCenter.put("2100-2159", "0");
+        lyonCenter.put("2200-2259", "0");
+        lyonCenter.put("2300-2359", "0");
+
+        //HSC center
+        Map<String, Object> hscCenter = new HashMap<>();
+        hscCenter.put("name", "HSC Center");
+        hscCenter.put("0600-0659", "0");
+        hscCenter.put("0700-0759", "0");
+        hscCenter.put("0800-0859", "0");
+        hscCenter.put("0900-0959", "0");
+        hscCenter.put("1000-1059", "0");
+        hscCenter.put("1100-1159", "0");
+        hscCenter.put("1200-1259", "0");
+        hscCenter.put("1300-1359", "0");
+        hscCenter.put("1400-1459", "0");
+        hscCenter.put("1500-1559", "0");
+        hscCenter.put("1600-1659", "0");
+        hscCenter.put("1700-1759", "0");
+        hscCenter.put("1800-1859", "0");
+        hscCenter.put("1900-1959", "0");
+        hscCenter.put("2000-2059", "0");
+        hscCenter.put("2100-2159", "0");
+        hscCenter.put("2200-2259", "0");
+        hscCenter.put("2300-2359", "0");
+
+        //Village center
+        Map<String, Object> villageCenter = new HashMap<>();
+        hscCenter.put("name", "Village Center");
+        villageCenter.put("0600-0659", "0");
+        villageCenter.put("0700-0759", "0");
+        villageCenter.put("0800-0859", "0");
+        villageCenter.put("0900-0959", "0");
+        villageCenter.put("1000-1059", "0");
+        villageCenter.put("1100-1159", "0");
+        villageCenter.put("1200-1259", "0");
+        villageCenter.put("1300-1359", "0");
+        villageCenter.put("1400-1459", "0");
+        villageCenter.put("1500-1559", "0");
+        villageCenter.put("1600-1659", "0");
+        villageCenter.put("1700-1759", "0");
+        villageCenter.put("1800-1859", "0");
+        villageCenter.put("1900-1959", "0");
+        villageCenter.put("2000-2059", "0");
+        villageCenter.put("2100-2159", "0");
+        villageCenter.put("2200-2259", "0");
+        villageCenter.put("2300-2359", "0");
+
+        //Aquatics center
+        Map<String, Object> aquaCenter = new HashMap<>();
+        aquaCenter.put("name", "Aquatics Center");
+        aquaCenter.put("0600-0659", "0");
+        aquaCenter.put("0700-0759", "0");
+        aquaCenter.put("0800-0859", "0");
+        aquaCenter.put("0900-0959", "0");
+        aquaCenter.put("1000-1059", "0");
+        aquaCenter.put("1100-1159", "0");
+        aquaCenter.put("1200-1259", "0");
+        aquaCenter.put("1300-1359", "0");
+        aquaCenter.put("1400-1459", "0");
+        aquaCenter.put("1500-1559", "0");
+        aquaCenter.put("1600-1659", "0");
+        aquaCenter.put("1700-1759", "0");
+        aquaCenter.put("1800-1859", "0");
+        aquaCenter.put("1900-1959", "0");
+        aquaCenter.put("2000-2059", "0");
+        aquaCenter.put("2100-2159", "0");
+        aquaCenter.put("2200-2259", "0");
+        aquaCenter.put("2300-2359", "0");
+
+        gymsCollection.set(lyonCenter).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Log.d(TAG, "Loading gyms for" + userID);
+            }
+        });
+        gymsCollection.set(hscCenter).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Log.d(TAG, "Loading gyms for" + userID);
+            }
+        });
+        gymsCollection.set(villageCenter).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Log.d(TAG, "Loading gyms for" + userID);
+            }
+        });
+        gymsCollection.set(aquaCenter).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Log.d(TAG, "Loading gyms for" + userID);
+            }
+        });
 
         //Back button
         Button myButton2 = (Button) findViewById(R.id.backSummary);
@@ -61,19 +172,15 @@ public class CopyOfMainActivity extends AppCompatActivity
             }
         });
 
-        gymsCollection.set(lyonCenter).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Log.d(TAG, "Loading gyms for" + userID);
-            }
-        });
+        TextView tv9 = (TextView)findViewById(R.id.textView);
+        tv9.setText("Welcome, " + userID);
 
         //Appending text to the text views
-        TextView tv1 = (TextView)findViewById(R.id.view4);
+        TextView tv1 = (TextView)findViewById(R.id.view);
         gymsCollection.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                tv1.setText(value.getString("hours"));
+                tv1.setText(value.getString("1800-1859"));
             }
         });
 
@@ -92,15 +199,6 @@ public class CopyOfMainActivity extends AppCompatActivity
         TextView tv6 = (TextView)findViewById(R.id.view13);
         tv6.setText("1700-1800, January 3rd");
 
-        //Making the delete buttons work
-        Button delete1 = (Button) findViewById(R.id.button10);
-        delete1.setBackgroundColor(Color.RED);
-        delete1.setTextColor(Color.WHITE);
-        delete1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                tv1.setText("");
-            }
-        });
 
         Button delete2 = (Button) findViewById(R.id.button11);
         delete2.setBackgroundColor(Color.RED);
