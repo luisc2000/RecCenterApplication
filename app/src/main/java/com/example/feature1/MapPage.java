@@ -1,7 +1,9 @@
 package com.example.feature1;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +11,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -16,18 +24,23 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
-public class MapPage extends AppCompatActivity {
+public class MapPage /*extends AppCompatActivity*/extends FragmentActivity implements OnMapReadyCallback {
 
     private Button elogout;
     TextView name, email, studentID;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
+    GoogleMap map;
+    String sample = "I am a very long string with too many words I am a very long string with too many words I am a very long string with too many words";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_page);
 
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
         elogout = findViewById(R.id.LogoutButton);
 
         name = findViewById(R.id.TVname);
@@ -67,6 +80,24 @@ public class MapPage extends AppCompatActivity {
                 startActivity(nextScreen);
             }
         });
+    }
 
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap)
+    {
+        map = googleMap;
+        LatLng village = new LatLng(34.02528414431285, -118.28585527462162);
+        map.addMarker(new MarkerOptions().position(village).title("USC Village Fitness Center").snippet(sample));
+
+        LatLng lyonCenter = new LatLng(34.02464874710005, -118.28839680318703);
+        map.addMarker(new MarkerOptions().position(lyonCenter).title("Lyon Center"));
+
+        LatLng cromwell = new LatLng(34.023527870061926, -118.28796920391058);
+        map.addMarker(new MarkerOptions().position(cromwell).title("Cromwell Track & Field"));
+
+        LatLng Uytengsu = new LatLng(34.02493427833876, -118.28570100872535);
+        map.addMarker(new MarkerOptions().position(Uytengsu).title("Uytengsu Aquatics Center"));
+
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(34.02512659537994, -118.28701347865245), 16f));
     }
 }

@@ -1,99 +1,49 @@
 package com.example.feature1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import android.os.Bundle;
+public class ActualMap extends FragmentActivity implements OnMapReadyCallback {
 
-import androidx.appcompat.app.AppCompatActivity;
-
-/**
- * This shows how to create a simple activity with a raw MapView and add a marker to it. This
- * requires forwarding all the important lifecycle methods onto MapView.
- */
-public class ActualMap extends AppCompatActivity implements OnMapReadyCallback {
-
-    private MapView mMapView;
-
-    private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
-
+    GoogleMap map;
+    String sample = "I am a very long string with too many words I am a very long string with too many words I am a very long string with too many words";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_actual_map);
 
-        // *** IMPORTANT ***
-        // MapView requires that the Bundle you pass contain _ONLY_ MapView SDK
-        // objects or sub-Bundles.
-        Bundle mapViewBundle = null;
-        if (savedInstanceState != null) {
-            mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY);
-        }
-        mMapView = (MapView) findViewById(R.id.mapView);
-        mMapView.onCreate(mapViewBundle);
-
-        mMapView.getMapAsync(this);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+    public void onMapReady(@NonNull GoogleMap googleMap)
+    {
+        map = googleMap;
+        LatLng village = new LatLng(34.02528414431285, -118.28585527462162);
+        map.addMarker(new MarkerOptions().position(village).title("USC Village Fitness Center")/*.snippet(sample)*/);
 
-        Bundle mapViewBundle = outState.getBundle(MAPVIEW_BUNDLE_KEY);
-        if (mapViewBundle == null) {
-            mapViewBundle = new Bundle();
-            outState.putBundle(MAPVIEW_BUNDLE_KEY, mapViewBundle);
-        }
+        LatLng lyonCenter = new LatLng(34.02464874710005, -118.28839680318703);
+        map.addMarker(new MarkerOptions().position(lyonCenter).title("Lyon Center"));
 
-        mMapView.onSaveInstanceState(mapViewBundle);
-    }
+        LatLng cromwell = new LatLng(34.023527870061926, -118.28796920391058);
+        map.addMarker(new MarkerOptions().position(cromwell).title("Cromwell Track & Field"));
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mMapView.onResume();
-    }
+        LatLng Uytengsu = new LatLng(34.02493427833876, -118.28570100872535);
+        map.addMarker(new MarkerOptions().position(Uytengsu).title("Uytengsu Aquatics Center"));
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mMapView.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mMapView.onStop();
-    }
-
-    @Override
-    public void onMapReady(GoogleMap map) {
-        map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
-    }
-
-    @Override
-    protected void onPause() {
-        mMapView.onPause();
-        super.onPause();
-    }
-
-    @Override
-    protected void onDestroy() {
-        mMapView.onDestroy();
-        super.onDestroy();
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        mMapView.onLowMemory();
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(lyonCenter, 16f));
     }
 
 }

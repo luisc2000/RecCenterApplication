@@ -29,8 +29,6 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText eRegName, eRegPassword, eFullName, ePhotoURL, eStudentID;
     private Button eRegister;
 
-    public static Credentials credentials;
-
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
 
