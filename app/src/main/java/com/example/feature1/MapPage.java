@@ -2,7 +2,6 @@ package com.example.feature1;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
@@ -72,7 +71,7 @@ public class MapPage /*extends AppCompatActivity*/extends FragmentActivity imple
 //        startActivity(new Intent(getApplicationContext(), MapsFragment.class));
 
         ///Alex's booking button
-        Button myButton = (Button) findViewById(R.id.bookingButton);
+        Button myButton = findViewById(R.id.bookingButton);
         myButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 setContentView(R.layout.activity_summary);
