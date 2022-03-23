@@ -25,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // main will first take you to the login page. upon success, will take you to the page where the map will appear
-        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+//        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        startActivity(new Intent(getApplicationContext(), MainActivity_Feature3.class));
 
     }
 }
