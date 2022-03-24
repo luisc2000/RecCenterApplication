@@ -81,7 +81,7 @@
         app:layout_constraintVertical_bias="0.182" />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/cap_2_2"
         android:layout_width="188dp"
         android:layout_height="26dp"
         android:text="capacity: "
@@ -93,7 +93,7 @@
         app:layout_constraintVertical_bias="0.319" />
 
     <TextView
-        android:id="@+id/textView18"
+        android:id="@+id/cap_2_3"
         android:layout_width="188dp"
         android:layout_height="26dp"
         android:text="capacity: "
@@ -105,7 +105,7 @@
         app:layout_constraintVertical_bias="0.426" />
 
     <TextView
-        android:id="@+id/textView20"
+        android:id="@+id/cap_2_4"
         android:layout_width="188dp"
         android:layout_height="26dp"
         android:text="capacity: "
@@ -117,7 +117,7 @@
         app:layout_constraintVertical_bias="0.536" />
 
     <TextView
-        android:id="@+id/textView22"
+        android:id="@+id/cap_2_5"
         android:layout_width="188dp"
         android:layout_height="26dp"
         android:text="capacity: "
@@ -129,7 +129,7 @@
         app:layout_constraintVertical_bias="0.642" />
 
     <TextView
-        android:id="@+id/textView24"
+        android:id="@+id/cap_2_6"
         android:layout_width="188dp"
         android:layout_height="26dp"
         android:text="capacity: "
@@ -141,7 +141,7 @@
         app:layout_constraintVertical_bias="0.751" />
 
     <TextView
-        android:id="@+id/textView16"
+        android:id="@+id/cap_2_1"
         android:layout_width="188dp"
         android:layout_height="26dp"
         android:text="capacity: "
@@ -153,7 +153,7 @@
         app:layout_constraintVertical_bias="0.218" />
 
     <Button
-        android:id="@+id/backSummary"
+        android:id="@+id/backBtn_2"
         android:layout_width="78dp"
         android:layout_height="43dp"
         android:text="Back"
@@ -177,7 +177,7 @@
         app:layout_constraintVertical_bias="0.027" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/bkBtn_2_1"
         android:layout_width="82dp"
         android:layout_height="51dp"
         android:text="Book"
@@ -190,7 +190,7 @@
         app:layout_constraintVertical_bias="0.189" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/bkBtn_2_2"
         android:layout_width="82dp"
         android:layout_height="51dp"
         android:text="Book"
@@ -203,7 +203,7 @@
         app:layout_constraintVertical_bias="0.292" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/bkBtn_2_3"
         android:layout_width="82dp"
         android:layout_height="51dp"
         android:text="Book"
@@ -216,7 +216,7 @@
         app:layout_constraintVertical_bias="0.404" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/bkBtn_2_4"
         android:layout_width="82dp"
         android:layout_height="51dp"
         android:text="Book"
@@ -229,7 +229,7 @@
         app:layout_constraintVertical_bias="0.514" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/bkBtn_2_5"
         android:layout_width="82dp"
         android:layout_height="51dp"
         android:text="Book"
@@ -242,7 +242,7 @@
         app:layout_constraintVertical_bias="0.627" />
 
     <Button
-        android:id="@+id/button9"
+        android:id="@+id/bkBtn_2_6"
         android:layout_width="82dp"
         android:layout_height="51dp"
         android:text="Book"
@@ -255,7 +255,7 @@
         app:layout_constraintVertical_bias="0.741" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/rmBtn_2_1"
         android:layout_width="82dp"
         android:layout_height="51dp"
         android:text="Remind me"
@@ -268,7 +268,7 @@
         app:layout_constraintVertical_bias="0.189" />
 
     <Button
-        android:id="@+id/button10"
+        android:id="@+id/rmBtn_2_2"
         android:layout_width="82dp"
         android:layout_height="51dp"
         android:text="Remind me"
@@ -281,7 +281,7 @@
         app:layout_constraintVertical_bias="0.292" />
 
     <Button
-        android:id="@+id/button11"
+        android:id="@+id/rmBtn_2_3"
         android:layout_width="82dp"
         android:layout_height="51dp"
         android:text="Remind me"
@@ -294,7 +294,7 @@
         app:layout_constraintVertical_bias="0.404" />
 
     <Button
-        android:id="@+id/button12"
+        android:id="@+id/rmBtn_2_4"
         android:layout_width="82dp"
         android:layout_height="51dp"
         android:text="Remind me"
@@ -307,7 +307,20 @@
         app:layout_constraintVertical_bias="0.514" />
 
     <Button
-        android:id="@+id/button13"
+        android:id="@+id/rmBtn_2_5"
+        android:layout_width="82dp"
+        android:layout_height="51dp"
+        android:text="Remind me"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.945"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.629" />
+
+    <Button
+        android:id="@+id/rmBtn_2_6"
         android:layout_width="82dp"
         android:layout_height="51dp"
         android:text="Remind me"
@@ -317,19 +330,6 @@
         app:layout_constraintHorizontal_bias="0.951"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.627" />
-
-    <Button
-        android:id="@+id/button14"
-        android:layout_width="82dp"
-        android:layout_height="51dp"
-        android:text="Remind me"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.954"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.741" />
+        app:layout_constraintVertical_bias="0.742" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
