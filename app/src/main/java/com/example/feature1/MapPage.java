@@ -79,12 +79,19 @@ public class MapPage /*extends AppCompatActivity*/extends FragmentActivity imple
             }
         });
 
-        // Jadrian Buttons here
+        // Jadrian's Buttons here
         Button lyon = findViewById(R.id.xmlLyonButton);
         lyon.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 setContentView(R.layout.activity_summary);
-                Intent nextScreen = new Intent(MapPage.this, MainActivity_Feature3.class);
+                Intent nextScreen = new Intent(MapPage.this, Feature2.class);
+
+                // added this to point to specific gym database -Jadrian
+                Bundle b = new Bundle();
+                b.putString("db", "LyonCenter");
+                nextScreen.putExtras(b);
+                //
+
                 startActivity(nextScreen);
             }
         });
@@ -93,7 +100,7 @@ public class MapPage /*extends AppCompatActivity*/extends FragmentActivity imple
         cromwell.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 setContentView(R.layout.activity_summary);
-                Intent nextScreen = new Intent(MapPage.this, MainActivity_Feature3.class);
+                Intent nextScreen = new Intent(MapPage.this, Feature2.class);
                 startActivity(nextScreen);
             }
         });
@@ -102,7 +109,7 @@ public class MapPage /*extends AppCompatActivity*/extends FragmentActivity imple
         village.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 setContentView(R.layout.activity_summary);
-                Intent nextScreen = new Intent(MapPage.this, MainActivity_Feature3.class);
+                Intent nextScreen = new Intent(MapPage.this, Feature2.class);
                 startActivity(nextScreen);
             }
         });
@@ -111,7 +118,7 @@ public class MapPage /*extends AppCompatActivity*/extends FragmentActivity imple
         uytengsu.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 setContentView(R.layout.activity_summary);
-                Intent nextScreen = new Intent(MapPage.this, MainActivity_Feature3.class);
+                Intent nextScreen = new Intent(MapPage.this, Feature2.class);
                 startActivity(nextScreen);
             }
         });

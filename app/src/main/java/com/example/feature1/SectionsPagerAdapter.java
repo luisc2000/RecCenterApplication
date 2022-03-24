@@ -20,12 +20,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+    // todo: get dates for TAB_TITLES
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
+
     @StringRes
     private static final int[] TAB_TITLES = new int[]{R.string.day_1, R.string.day_2, R.string.day_3};
     private final Context mContext;
 
-    FirebaseAuth fAuth;
-    FirebaseFirestore fStore;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
@@ -42,6 +44,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         switch(position) {
             case 0:
                 fragment = new Fragment1();
+
                 break;
             case 1:
                 fragment = new Fragment2();
