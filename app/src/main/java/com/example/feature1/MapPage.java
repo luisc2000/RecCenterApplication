@@ -25,7 +25,6 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class MapPage /*extends AppCompatActivity*/extends FragmentActivity implements OnMapReadyCallback {
 
-    private Button elogout;
     TextView name, email, studentID;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
@@ -40,7 +39,7 @@ public class MapPage /*extends AppCompatActivity*/extends FragmentActivity imple
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        elogout = findViewById(R.id.LogoutButton);
+        Button elogout = findViewById(R.id.LogoutButton);
 
         name = findViewById(R.id.TVname);
         email = findViewById(R.id.TVemail);
@@ -76,6 +75,43 @@ public class MapPage /*extends AppCompatActivity*/extends FragmentActivity imple
             public void onClick(View v) {
                 setContentView(R.layout.activity_summary);
                 Intent nextScreen = new Intent(MapPage.this, CopyOfMainActivity.class);
+                startActivity(nextScreen);
+            }
+        });
+
+        // Jadrian Buttons here
+        Button lyon = findViewById(R.id.xmlLyonButton);
+        lyon.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                setContentView(R.layout.activity_summary);
+                Intent nextScreen = new Intent(MapPage.this, MainActivity_Feature3.class);
+                startActivity(nextScreen);
+            }
+        });
+
+        Button cromwell = findViewById(R.id.xmlCromwellButton);
+        cromwell.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                setContentView(R.layout.activity_summary);
+                Intent nextScreen = new Intent(MapPage.this, MainActivity_Feature3.class);
+                startActivity(nextScreen);
+            }
+        });
+
+        Button village = findViewById(R.id.xmlVillageButton);
+        village.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                setContentView(R.layout.activity_summary);
+                Intent nextScreen = new Intent(MapPage.this, MainActivity_Feature3.class);
+                startActivity(nextScreen);
+            }
+        });
+
+        Button uytengsu = findViewById(R.id.xmlUytengsuButton);
+        uytengsu.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                setContentView(R.layout.activity_summary);
+                Intent nextScreen = new Intent(MapPage.this, MainActivity_Feature3.class);
                 startActivity(nextScreen);
             }
         });
