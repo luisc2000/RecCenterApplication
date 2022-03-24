@@ -2,6 +2,7 @@ package com.example.feature1;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
@@ -23,7 +24,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
-public class MapPage /*extends AppCompatActivity*/extends FragmentActivity implements OnMapReadyCallback {
+public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
 
     TextView name, email, studentID;
     FirebaseAuth fAuth;
