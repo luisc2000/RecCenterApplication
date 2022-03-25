@@ -9,12 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -22,7 +18,10 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,119 +45,134 @@ public class CopyOfMainActivity extends AppCompatActivity
         userID = fAuth.getCurrentUser().getUid();
 
         //Building the gyms section of the database
-        DocumentReference gymsCollection = fStore.collection("gyms").document(userID);
+        Calendar calendar = Calendar.getInstance();
+        Date today = calendar.getTime();
+
+        DateFormat dateFormat = DateFormat.getDateInstance();
+        String today_String = dateFormat.format(today);
+
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date todayPlusOne = calendar.getTime();
+        String todayPlusOne_String = dateFormat.format(todayPlusOne);
+
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date todayPlusTwo = calendar.getTime();
+        String todayPlusTwo_String = dateFormat.format(todayPlusTwo);
+
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date todayPlusThree = calendar.getTime();
+        String todayPlusThree_String = dateFormat.format(todayPlusThree);
+
+        ArrayList<String> days = new ArrayList<String>();
+        days.add(today_String);
+        days.add(todayPlusOne_String);
+        days.add(todayPlusTwo_String);
+        days.add(todayPlusThree_String);
+
+
         //Lyon center
+        DocumentReference gymsCollectionLyon = fStore.collection("Lyon_Center").document(days.get(0));
+        DocumentReference gymsCollectionLyon1 = fStore.collection("Lyon_Center").document(days.get(1));
+        DocumentReference gymsCollectionLyon2 = fStore.collection("Lyon_Center").document(days.get(2));
+        DocumentReference gymsCollectionLyon3 = fStore.collection("Lyon_Center").document(days.get(3));
         Map<String, Object> lyonCenter = new HashMap<>();
         lyonCenter.put("name", "Lyon Center");
-        lyonCenter.put("0600-0659", "0");
-        lyonCenter.put("0700-0759", "0");
-        lyonCenter.put("0800-0859", "0");
-        lyonCenter.put("0900-0959", "0");
-        lyonCenter.put("1000-1059", "0");
-        lyonCenter.put("1100-1159", "0");
-        lyonCenter.put("1200-1259", "0");
-        lyonCenter.put("1300-1359", "0");
-        lyonCenter.put("1400-1459", "0");
-        lyonCenter.put("1500-1559", "0");
-        lyonCenter.put("1600-1659", "0");
-        lyonCenter.put("1700-1759", "0");
-        lyonCenter.put("1800-1859", "0");
-        lyonCenter.put("1900-1959", "0");
-        lyonCenter.put("2000-2059", "0");
-        lyonCenter.put("2100-2159", "0");
-        lyonCenter.put("2200-2259", "0");
-        lyonCenter.put("2300-2359", "0");
+        lyonCenter.put("1000-1200", "5");
+        lyonCenter.put("1200-1400", "5");
+        lyonCenter.put("1400-1600", "5");
+        ArrayList<DocumentReference> lyonList = new ArrayList<DocumentReference>();
+        lyonList.add(gymsCollectionLyon);
+        lyonList.add(gymsCollectionLyon1);
+        lyonList.add(gymsCollectionLyon2);
+        lyonList.add(gymsCollectionLyon3);
+        for(int i= 0; i<4; i++)
+        {
+            lyonList.get(i).set(lyonCenter).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    Log.d(TAG, "Loading gyms for" + userID);
+                }
+            });
+        }
 
         //HSC center
+        DocumentReference gymsCollectionHSC = fStore.collection("HSC_Center").document(days.get(0));
+        DocumentReference gymsCollectionHSC1 = fStore.collection("HSC_Center").document(days.get(1));
+        DocumentReference gymsCollectionHSC2= fStore.collection("HSC_Center").document(days.get(2));
+        DocumentReference gymsCollectionHSC3= fStore.collection("HSC_Center").document(days.get(3));
         Map<String, Object> hscCenter = new HashMap<>();
         hscCenter.put("name", "HSC Center");
-        hscCenter.put("0600-0659", "0");
-        hscCenter.put("0700-0759", "0");
-        hscCenter.put("0800-0859", "0");
-        hscCenter.put("0900-0959", "0");
-        hscCenter.put("1000-1059", "0");
-        hscCenter.put("1100-1159", "0");
-        hscCenter.put("1200-1259", "0");
-        hscCenter.put("1300-1359", "0");
-        hscCenter.put("1400-1459", "0");
-        hscCenter.put("1500-1559", "0");
-        hscCenter.put("1600-1659", "0");
-        hscCenter.put("1700-1759", "0");
-        hscCenter.put("1800-1859", "0");
-        hscCenter.put("1900-1959", "0");
-        hscCenter.put("2000-2059", "0");
-        hscCenter.put("2100-2159", "0");
-        hscCenter.put("2200-2259", "0");
-        hscCenter.put("2300-2359", "0");
+        hscCenter.put("1000-1200", "5");
+        hscCenter.put("1200-1400", "5");
+        hscCenter.put("1400-1600", "5");
+        ArrayList<DocumentReference> hscList = new ArrayList<DocumentReference>();
+        hscList.add(gymsCollectionHSC);
+        hscList.add(gymsCollectionHSC1);
+        hscList.add(gymsCollectionHSC2);
+        hscList.add(gymsCollectionHSC3);
+        for(int i= 0; i<4; i++)
+        {
+            hscList.get(i).set(hscCenter).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    Log.d(TAG, "Loading gyms for" + userID);
+                }
+            });
+        }
 
         //Village center
+        DocumentReference gymsCollectionVillage = fStore.collection("Village_Center").document(days.get(0));
+        DocumentReference gymsCollectionVillage1 = fStore.collection("Village_Center").document(days.get(1));
+        DocumentReference gymsCollectionVillage2 = fStore.collection("Village_Center").document(days.get(2));
+        DocumentReference gymsCollectionVillage3 = fStore.collection("Village_Center").document(days.get(3));
         Map<String, Object> villageCenter = new HashMap<>();
-        hscCenter.put("name", "Village Center");
-        villageCenter.put("0600-0659", "0");
-        villageCenter.put("0700-0759", "0");
-        villageCenter.put("0800-0859", "0");
-        villageCenter.put("0900-0959", "0");
-        villageCenter.put("1000-1059", "0");
-        villageCenter.put("1100-1159", "0");
-        villageCenter.put("1200-1259", "0");
-        villageCenter.put("1300-1359", "0");
-        villageCenter.put("1400-1459", "0");
-        villageCenter.put("1500-1559", "0");
-        villageCenter.put("1600-1659", "0");
-        villageCenter.put("1700-1759", "0");
-        villageCenter.put("1800-1859", "0");
-        villageCenter.put("1900-1959", "0");
-        villageCenter.put("2000-2059", "0");
-        villageCenter.put("2100-2159", "0");
-        villageCenter.put("2200-2259", "0");
-        villageCenter.put("2300-2359", "0");
+        villageCenter.put("name", "Village Center");
+        villageCenter.put("1000-1200", "5");
+        villageCenter.put("1200-1400", "5");
+        villageCenter.put("1400-1600", "5");
+        ArrayList<DocumentReference> villageList = new ArrayList<DocumentReference>();
+        villageList.add(gymsCollectionVillage);
+        villageList.add(gymsCollectionVillage1);
+        villageList.add(gymsCollectionVillage2);
+        villageList.add(gymsCollectionVillage3);
+        for(int i= 0; i<4; i++)
+        {
+            villageList.get(i).set(villageCenter).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    Log.d(TAG, "Loading gyms for" + userID);
+                }
+            });
+        }
 
         //Aquatics center
+        DocumentReference gymsCollectionAqua = fStore.collection("Aqua_Center").document(days.get(0));
+        DocumentReference gymsCollectionAqua1 = fStore.collection("Aqua_Center").document(days.get(1));
+        DocumentReference gymsCollectionAqua2 = fStore.collection("Aqua_Center").document(days.get(2));
+        DocumentReference gymsCollectionAqua3 = fStore.collection("Aqua_Center").document(days.get(3));
         Map<String, Object> aquaCenter = new HashMap<>();
         aquaCenter.put("name", "Aquatics Center");
-        aquaCenter.put("0600-0659", "0");
-        aquaCenter.put("0700-0759", "0");
-        aquaCenter.put("0800-0859", "0");
-        aquaCenter.put("0900-0959", "0");
-        aquaCenter.put("1000-1059", "0");
-        aquaCenter.put("1100-1159", "0");
-        aquaCenter.put("1200-1259", "0");
-        aquaCenter.put("1300-1359", "0");
-        aquaCenter.put("1400-1459", "0");
-        aquaCenter.put("1500-1559", "0");
-        aquaCenter.put("1600-1659", "0");
-        aquaCenter.put("1700-1759", "0");
-        aquaCenter.put("1800-1859", "0");
-        aquaCenter.put("1900-1959", "0");
-        aquaCenter.put("2000-2059", "0");
-        aquaCenter.put("2100-2159", "0");
-        aquaCenter.put("2200-2259", "0");
-        aquaCenter.put("2300-2359", "0");
+        aquaCenter.put("1000-1200", "5");
+        aquaCenter.put("1200-1400", "5");
+        aquaCenter.put("1400-1600", "5");
+        ArrayList<DocumentReference> aquaList = new ArrayList<DocumentReference>();
+        aquaList.add(gymsCollectionAqua);
+        aquaList.add(gymsCollectionAqua1);
+        aquaList.add(gymsCollectionAqua2);
+        aquaList.add(gymsCollectionAqua3);
+        for(int i= 0; i<4; i++)
+        {
+            aquaList.get(i).set(aquaCenter).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    Log.d(TAG, "Loading gyms for" + userID);
+                }
+            });
+        }
 
-        gymsCollection.set(lyonCenter).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Log.d(TAG, "Loading gyms for" + userID);
-            }
-        });
-        gymsCollection.set(hscCenter).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Log.d(TAG, "Loading gyms for" + userID);
-            }
-        });
-        gymsCollection.set(villageCenter).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Log.d(TAG, "Loading gyms for" + userID);
-            }
-        });
-        gymsCollection.set(aquaCenter).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Log.d(TAG, "Loading gyms for" + userID);
-            }
-        });
+        //Users collection
+        DocumentReference documentReference = fStore.collection("users").document(userID);
+
 
         //Back button
         Button myButton2 = (Button) findViewById(R.id.backSummary);
@@ -173,16 +187,23 @@ public class CopyOfMainActivity extends AppCompatActivity
         });
 
         TextView tv9 = (TextView)findViewById(R.id.textView);
-        tv9.setText("Welcome, " + userID);
-
-        //Appending text to the text views
-        TextView tv1 = (TextView)findViewById(R.id.view);
-        gymsCollection.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+        //This part of the code fetches info from the database
+        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                tv1.setText(value.getString("1800-1859"));
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error)
+            {
+                tv9.setText("Welcome, " + value.getString("name"));
             }
         });
+
+        //Appending text to the text views
+//        TextView tv1 = (TextView)findViewById(R.id.view);
+//        gymsCollection.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+//                tv1.setText(value.getString("1800-2000"));
+//            }
+//        });
 
         TextView tv2 = (TextView)findViewById(R.id.view);
         tv2.setText("1500-600, January 29th");
@@ -198,7 +219,6 @@ public class CopyOfMainActivity extends AppCompatActivity
 
         TextView tv6 = (TextView)findViewById(R.id.view13);
         tv6.setText("1700-1800, January 3rd");
-
 
         Button delete2 = (Button) findViewById(R.id.button11);
         delete2.setBackgroundColor(Color.RED);
