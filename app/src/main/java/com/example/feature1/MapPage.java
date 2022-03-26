@@ -1,15 +1,14 @@
 package com.example.feature1;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -75,7 +74,7 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
         myButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 setContentView(R.layout.activity_summary);
-                Intent nextScreen = new Intent(MapPage.this, CopyOfMainActivity.class);
+                Intent nextScreen = new Intent(MapPage.this, BookingPage.class);
                 startActivity(nextScreen);
             }
         });
