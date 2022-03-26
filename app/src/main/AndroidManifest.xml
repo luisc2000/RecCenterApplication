@@ -58,7 +58,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CopyOfMainActivity"
+            android:name=".BookingPage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
