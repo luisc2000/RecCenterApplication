@@ -102,7 +102,7 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
                 setContentView(R.layout.activity_summary);
                 Intent nextScreen = new Intent(MapPage.this, Feature2.class);
                 Bundle b = new Bundle();
-                b.putString("key", "HSC_Center");
+                b.putString("key", "Cromwell_Center");
                 nextScreen.putExtras(b);
                 startActivity(nextScreen);
             }
