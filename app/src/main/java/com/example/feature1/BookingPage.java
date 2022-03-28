@@ -116,8 +116,6 @@ public class BookingPage extends AppCompatActivity
                 }
                 for(int i= 0; i<4; i++)
                 {
-                    //If the day list does not contain the day then don't set it
-                    //If march 28th is in the database, then dont set this because it will overwrite
                     if (!list1.contains(days.get(i)))
                     {
                         lyonList.get(i).set(lyonCenter).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -161,8 +159,6 @@ public class BookingPage extends AppCompatActivity
                 }
                 for(int i= 0; i<4; i++)
                 {
-                    //If the day list does not contain the day then don't set it
-                    //If march 28th is in the database, then dont set this because it will overwrite
                     if (!list2.contains(days.get(i)))
                     {
                         hscList.get(i).set(hscCenter).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -206,8 +202,6 @@ public class BookingPage extends AppCompatActivity
                 }
                 for(int i= 0; i<4; i++)
                 {
-                    //If the day list does not contain the day then don't set it
-                    //If march 28th is in the database, then dont set this because it will overwrite
                     if (!list3.contains(days.get(i)))
                     {
                         villageList.get(i).set(villageCenter).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -251,8 +245,6 @@ public class BookingPage extends AppCompatActivity
                 }
                 for(int i= 0; i<4; i++)
                 {
-                    //If the day list does not contain the day then don't set it
-                    //If march 28th is in the database, then dont set this because it will overwrite
                     if (!list4.contains(days.get(i)))
                     {
                         aquaList.get(i).set(aquaCenter).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -281,20 +273,21 @@ public class BookingPage extends AppCompatActivity
             }
         });
 
-        //This section is for updating pieces of the database
-//        documentReference.update("Upcoming_Appt_1","Lyon|Mar 28, 2022|1400-1600");
-//        documentReference.update("Upcoming_Appt_2","Cromwell|Mar 29, 2022|1400-1600");
-//        documentReference.update("Previous_Appt_1","Village|Mar 29, 2022|0800-1000");
-//        documentReference.update("reminder_1","Village|Mar 27, 2022|1000-1200");
-//        documentReference.update("reminder_2","Lyon|Mar 27, 2022|1000-1200");
-//        documentReference.update("reminder_3","Cromwell|Mar 28, 2022|1000-1200");
+        //This section is for testing pieces of the database
+        /**
+        documentReference.update("Upcoming_Appt_1","Lyon|Mar 28, 2022|1400-1600");
+        documentReference.update("Upcoming_Appt_2","Cromwell|Mar 29, 2022|1400-1600");
+        documentReference.update("Previous_Appt_1","Village|Mar 29, 2022|0800-1000");
+        documentReference.update("reminder_1","Village|Mar 27, 2022|1000-1200");
+        documentReference.update("reminder_2","Lyon|Mar 27, 2022|1000-1200");
+        documentReference.update("reminder_3","Cromwell|Mar 28, 2022|1000-1200");
 
-
-//        Lyon|Mar 28, 2022|1000-1200
-//        Village|Mar 29, 2022|1000-1200
-//        Uytengsu|Mar 30, 2022|1200-1400
-//        Cromwell|Mar 31, 2022|1000-1200
-//        Village|Mar 30, 2022|1400-1600
+        Lyon|Mar 28, 2022|1000-1200
+        Village|Mar 29, 2022|1000-1200
+        Uytengsu|Mar 30, 2022|1200-1400
+        Cromwell|Mar 31, 2022|1000-1200
+        Village|Mar 30, 2022|1400-1600
+         **/
 
         TextView tv9 = (TextView)findViewById(R.id.textView);
         //This part of the code fetches info from the database
@@ -333,7 +326,7 @@ public class BookingPage extends AppCompatActivity
                                                 String capacityString = task.getResult().getString(str[2]);
                                                 int capacityInt = Integer.parseInt(capacityString);
                                                 if (capacityInt > 0) {
-                                                    r1.setText(str[0] + " " + str[1] + " " + str[2] + " is available" + "(" +capacityString+ "/5)");
+                                                    r1.setText(str[0] + " " + str[1] + " " + str[2] + " slots" + "(" +capacityString+ "/5)");
                                                 }
                                             }
                                         });
@@ -364,7 +357,7 @@ public class BookingPage extends AppCompatActivity
                                                 int capacityInt =Integer.parseInt(capacityString);
                                                 if(capacityInt > 0)
                                                 {
-                                                    r2.setText(str[0] + " "+  str[1] + " "+ str[2] +" is available" + "(" +capacityString+ "/5)");
+                                                    r2.setText(str[0] + " "+  str[1] + " "+ str[2] +" slots" + "(" +capacityString+ "/5)");
                                                 }
                                             }
                                         });
@@ -395,7 +388,7 @@ public class BookingPage extends AppCompatActivity
                                                 int capacityInt =Integer.parseInt(capacityString);
                                                 if(capacityInt > 0)
                                                 {
-                                                    r3.setText(str[0] + " "+  str[1] + " "+ str[2] +" is available" + "(" +capacityString+ "/5)");
+                                                    r3.setText(str[0] + " "+  str[1] + " "+ str[2] +" slots" + "(" +capacityString+ "/5)");
                                                 }
                                             }
                                         });
@@ -492,7 +485,6 @@ public class BookingPage extends AppCompatActivity
                             }
                         });
                 documentReference.update("Upcoming_Appt_1","");
-
             }
         });
 
