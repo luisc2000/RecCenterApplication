@@ -39,13 +39,16 @@ public class BookingPage extends AppCompatActivity
     public static final String TAG = "TAG";
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
-
+    String rem1, rem2, rem3, upcoming1, upcoming2, upcoming3, upcoming4, upcoming5;
+    String[] values = new String[3];
     String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Feature 3");
+
         setContentView(R.layout.activity_summary);
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -98,44 +101,41 @@ public class BookingPage extends AppCompatActivity
         lyonCenter.put("1200-1400", "5");
         lyonCenter.put("1400-1600", "5");
 
-        //----
-        List<String> list = new ArrayList<>();
+        List<String> list1 = new ArrayList<>();
         fStore.collection("Lyon_Center").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult())
                     {
-                        list.add(document.getId());
+                        list1.add(document.getId());
                     }
-                    Log.d(TAG, list.toString());
-                    TextView tea = (TextView)findViewById(R.id.view8);
-                    tea.setText( list.toString());
-
+                    Log.d(TAG, list1.toString());
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
                 }
+                for(int i= 0; i<4; i++)
+                {
+                    //If the day list does not contain the day then don't set it
+                    //If march 28th is in the database, then dont set this because it will overwrite
+                    if (!list1.contains(days.get(i)))
+                    {
+                        lyonList.get(i).set(lyonCenter).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Log.d(TAG, "Loading gyms for" + userID);
+                            }
+                        });
+                    }
+                }
             }
         });
-        //-----
-        for(int i= 0; i<4; i++)
-        {
-            if (!list.contains(days.get(i))) {
-                lyonList.get(i).set(lyonCenter).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Log.d(TAG, "Loading gyms for" + userID);
-                    }
-                });
-            }
-        }
-
 
         //HSC center
-        DocumentReference gymsCollectionHSC = fStore.collection("HSC_Center").document(days.get(0));
-        DocumentReference gymsCollectionHSC1 = fStore.collection("HSC_Center").document(days.get(1));
-        DocumentReference gymsCollectionHSC2= fStore.collection("HSC_Center").document(days.get(2));
-        DocumentReference gymsCollectionHSC3= fStore.collection("HSC_Center").document(days.get(3));
+        DocumentReference gymsCollectionHSC = fStore.collection("Cromwell_Center").document(days.get(0));
+        DocumentReference gymsCollectionHSC1 = fStore.collection("Cromwell_Center").document(days.get(1));
+        DocumentReference gymsCollectionHSC2= fStore.collection("Cromwell_Center").document(days.get(2));
+        DocumentReference gymsCollectionHSC3= fStore.collection("Cromwell_Center").document(days.get(3));
         Map<String, Object> hscCenter = new HashMap<>();
         hscCenter.put("name", "Cromwell");
         hscCenter.put("1000-1200", "5");
@@ -146,15 +146,35 @@ public class BookingPage extends AppCompatActivity
         hscList.add(gymsCollectionHSC1);
         hscList.add(gymsCollectionHSC2);
         hscList.add(gymsCollectionHSC3);
-        for(int i= 0; i<4; i++)
-        {
-            hscList.get(i).set(hscCenter).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void unused) {
-                    Log.d(TAG, "Loading gyms for" + userID);
+        List<String> list2 = new ArrayList<>();
+        fStore.collection("Cromwell_Center").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult())
+                    {
+                        list2.add(document.getId());
+                    }
+                    Log.d(TAG, list2.toString());
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
                 }
-            });
-        }
+                for(int i= 0; i<4; i++)
+                {
+                    //If the day list does not contain the day then don't set it
+                    //If march 28th is in the database, then dont set this because it will overwrite
+                    if (!list2.contains(days.get(i)))
+                    {
+                        hscList.get(i).set(hscCenter).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Log.d(TAG, "Loading gyms for" + userID);
+                            }
+                        });
+                    }
+                }
+            }
+        });
 
         //Village center
         DocumentReference gymsCollectionVillage = fStore.collection("Village_Center").document(days.get(0));
@@ -171,15 +191,35 @@ public class BookingPage extends AppCompatActivity
         villageList.add(gymsCollectionVillage1);
         villageList.add(gymsCollectionVillage2);
         villageList.add(gymsCollectionVillage3);
-        for(int i= 0; i<4; i++)
-        {
-            villageList.get(i).set(villageCenter).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void unused) {
-                    Log.d(TAG, "Loading gyms for" + userID);
+        List<String> list3 = new ArrayList<>();
+        fStore.collection("Village_Center").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult())
+                    {
+                        list3.add(document.getId());
+                    }
+                    Log.d(TAG, list3.toString());
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
                 }
-            });
-        }
+                for(int i= 0; i<4; i++)
+                {
+                    //If the day list does not contain the day then don't set it
+                    //If march 28th is in the database, then dont set this because it will overwrite
+                    if (!list3.contains(days.get(i)))
+                    {
+                        villageList.get(i).set(villageCenter).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Log.d(TAG, "Loading gyms for" + userID);
+                            }
+                        });
+                    }
+                }
+            }
+        });
 
         //Aquatics center
         DocumentReference gymsCollectionAqua = fStore.collection("Aqua_Center").document(days.get(0));
@@ -196,15 +236,35 @@ public class BookingPage extends AppCompatActivity
         aquaList.add(gymsCollectionAqua1);
         aquaList.add(gymsCollectionAqua2);
         aquaList.add(gymsCollectionAqua3);
-        for(int i= 0; i<4; i++)
-        {
-            aquaList.get(i).set(aquaCenter).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void unused) {
-                    Log.d(TAG, "Loading gyms for" + userID);
+        List<String> list4 = new ArrayList<>();
+        fStore.collection("Aqua_Center").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult())
+                    {
+                        list4.add(document.getId());
+                    }
+                    Log.d(TAG, list4.toString());
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
                 }
-            });
-        }
+                for(int i= 0; i<4; i++)
+                {
+                    //If the day list does not contain the day then don't set it
+                    //If march 28th is in the database, then dont set this because it will overwrite
+                    if (!list4.contains(days.get(i)))
+                    {
+                        aquaList.get(i).set(aquaCenter).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Log.d(TAG, "Loading gyms for" + userID);
+                            }
+                        });
+                    }
+                }
+            }
+        });
 
         //Users collection
         DocumentReference documentReference = fStore.collection("users").document(userID);
@@ -221,12 +281,20 @@ public class BookingPage extends AppCompatActivity
             }
         });
 
-//        //This section is for updating pieces of the database
-        documentReference.update("Upcoming_Appt_1","Lyon- Mar 13, 2023: 1000-1200");
-        documentReference.update("Upcoming_Appt_2","Cromwell- Mar 28, 2023: 1400-1600");
-        documentReference.update("Upcoming_Appt_3","Sup Jadrian");
-        documentReference.update("Previous_Appt_1","Village- Mar 7, 2023: 0800-1000");
-        documentReference.update("reminder_1","Village|May 9, 2023|0800-1000");
+        //This section is for updating pieces of the database
+//        documentReference.update("Upcoming_Appt_1","Lyon|Mar 28, 2022|1400-1600");
+//        documentReference.update("Upcoming_Appt_2","Cromwell|Mar 29, 2022|1400-1600");
+//        documentReference.update("Previous_Appt_1","Village|Mar 29, 2022|0800-1000");
+//        documentReference.update("reminder_1","Village|Mar 27, 2022|1000-1200");
+//        documentReference.update("reminder_2","Lyon|Mar 27, 2022|1000-1200");
+//        documentReference.update("reminder_3","Cromwell|Mar 28, 2022|1000-1200");
+
+
+//        Lyon|Mar 28, 2022|1000-1200
+//        Village|Mar 29, 2022|1000-1200
+//        Uytengsu|Mar 30, 2022|1200-1400
+//        Cromwell|Mar 31, 2022|1000-1200
+//        Village|Mar 30, 2022|1400-1600
 
         TextView tv9 = (TextView)findViewById(R.id.textView);
         //This part of the code fetches info from the database
@@ -235,34 +303,106 @@ public class BookingPage extends AppCompatActivity
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error)
             {
                 tv9.setText("Welcome, " + value.getString("name"));
-
             }
         });
 
-        //--------------------------------------------------------------------------------------------------------------------------
+        //Reminders section
+        //Reminder 1
         Map<String, String> namesMap  = new HashMap<String, String>();
         namesMap.put("Village", "Village_Center");
         namesMap.put("Uytengsu", "Aqua_Center");
-        namesMap.put("Cromwell", "HSC_Center");
+        namesMap.put("Cromwell","Cromwell_Center");
         namesMap.put("Lyon", "Lyon_Center");
-        TextView r1 = (TextView)findViewById(R.id.view10);
-        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>()
-        {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error)
-            {
-                //r1.setText(value.getString("reminder_1"));
-                String rem1 = value.getString("reminder_1");
-                String[] values = rem1.split("\\|");
-                String recCenter = values[0];
-                String date = values[1];
-                String time = values[2];
-                //Now we have recCenter | Date | time
-                //Check the document first by looking at the hash map
-                checker = fStore.collection(namesMap.get(recCenter)).document(date);
-            }
-        });
 
+        TextView r1 = (TextView)findViewById(R.id.view10);
+        DocumentReference documentReference11 = fStore.collection("users").document(userID);
+        documentReference11.get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        rem1 = task.getResult().getString("reminder_1");
+                        //The string I am parsing "Village|Mar 27, 2022|1000-1200"
+                        if(rem1 != null) {
+                            String[] str = rem1.split("\\|");
+                            if(namesMap.get(str[0]) != null) {
+                                DocumentReference documentReference = fStore.collection(namesMap.get(str[0])).document(str[1]);
+                                documentReference.get()
+                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                String capacityString = task.getResult().getString(str[2]);
+                                                int capacityInt = Integer.parseInt(capacityString);
+                                                if (capacityInt > 0) {
+                                                    r1.setText(str[0] + " " + str[1] + " " + str[2] + " is available" + "(" +capacityString+ "/5)");
+                                                }
+                                            }
+                                        });
+                            }
+                        }
+                    }
+                });
+        //Reminder2
+        TextView r2 = (TextView)findViewById(R.id.view7);
+        DocumentReference documentReference13 = fStore.collection("users").document(userID);
+        documentReference13.get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        rem2 = task.getResult().getString("reminder_2");
+                        if(rem2 != null)
+                        {
+                            String[] str = rem2.split("\\|");
+                            if(namesMap.get(str[0]) != null)
+                            {
+                                DocumentReference documentReference = fStore.collection(namesMap.get(str[0])).document(str[1]);
+                                documentReference.get()
+                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task)
+                                            {
+                                                String capacityString = task.getResult().getString(str[2]);
+                                                int capacityInt =Integer.parseInt(capacityString);
+                                                if(capacityInt > 0)
+                                                {
+                                                    r2.setText(str[0] + " "+  str[1] + " "+ str[2] +" is available" + "(" +capacityString+ "/5)");
+                                                }
+                                            }
+                                        });
+                            }
+                        }
+                    }
+                });
+        //Reminder 3
+        TextView r3 = (TextView)findViewById(R.id.view7);
+        DocumentReference documentReference15 = fStore.collection("users").document(userID);
+        documentReference15.get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        rem3 = task.getResult().getString("reminder_3");
+                        if(rem3 != null)
+                        {
+                            String[] str = rem3.split("\\|");
+                            if(namesMap.get(str[0]) != null)
+                            {
+                                DocumentReference documentReference = fStore.collection(namesMap.get(str[0])).document(str[1]);
+                                documentReference.get()
+                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task)
+                                            {
+                                                String capacityString = task.getResult().getString(str[2]);
+                                                int capacityInt =Integer.parseInt(capacityString);
+                                                if(capacityInt > 0)
+                                                {
+                                                    r3.setText(str[0] + " "+  str[1] + " "+ str[2] +" is available" + "(" +capacityString+ "/5)");
+                                                }
+                                            }
+                                        });
+                            }
+                        }
+                    }
+                });
 
         //First slot of previous appointment
         TextView tv2 = (TextView)findViewById(R.id.view);
@@ -309,15 +449,50 @@ public class BookingPage extends AppCompatActivity
                 tv6.setText(value.getString("Upcoming_Appt_5"));
             }
         });
-
+        //############################# THIS CODE MAY NOT COMPLETE TEST LATER ######################################################
         //Appt 1 delete
         Button delete2 = (Button) findViewById(R.id.button11);
         delete2.setBackgroundColor(Color.RED);
         delete2.setTextColor(Color.WHITE);
-        delete2.setOnClickListener(new View.OnClickListener() {
+        delete2.setOnClickListener(new View.OnClickListener()
+        {
             public void onClick(View v) {
                 tv2.setText("");
+                //Objective: Update rec center capacity
+                documentReference.get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                upcoming1 = task.getResult().getString("Upcoming_Appt_1");
+                                if( upcoming1 != null)
+                                {
+                                    String[] str =  upcoming1.split("\\|");
+                                    if(namesMap.get(str[0]) != null)
+                                    {
+                                        //Lyon_Center .... Mar 28, 2022=
+                                        DocumentReference gymRef = fStore.collection(namesMap.get(str[0])).document(str[1]);
+                                        gymRef.get()
+                                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task)
+                                                    {
+                                                        String capacityString = task.getResult().getString(str[2]);
+                                                        int capacityInt =Integer.parseInt(capacityString);
+                                                        if(capacityInt < 5)
+                                                        {
+                                                            capacityInt++;
+                                                        }
+                                                        String setNewCapacity = String.valueOf(capacityInt);
+                                                        gymRef.update(str[2], setNewCapacity);
+                                                        documentReference.update("Upcoming_Appt_1","");
+                                                    }
+                                                });
+                                    }
+                                }
+                            }
+                        });
                 documentReference.update("Upcoming_Appt_1","");
+
             }
         });
 
@@ -325,9 +500,45 @@ public class BookingPage extends AppCompatActivity
         Button delete3 = (Button) findViewById(R.id.button13);
         delete3.setBackgroundColor(Color.RED);
         delete3.setTextColor(Color.WHITE);
-        delete3.setOnClickListener(new View.OnClickListener() {
+        delete3.setOnClickListener(new View.OnClickListener()
+        {
             public void onClick(View v) {
                 tv3.setText("");
+                //Objective: Update rec center capacity
+                documentReference.get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                upcoming2 = task.getResult().getString("Upcoming_Appt_2");
+                                if( upcoming2 != null)
+                                {
+                                    String[] str =  upcoming2.split("\\|");
+                                    if(namesMap.get(str[0]) != null)
+                                    {
+                                        //"Upcoming_Appt_2","Cromwell|Mar 29, 2022|1400-1600"
+                                        //Cromwell -> Cromwell_Center
+                                        //Mar 29, 2022
+                                        DocumentReference gymRef2 = fStore.collection(namesMap.get(str[0])).document(str[1]);
+                                        gymRef2.get()
+                                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task)
+                                                    {
+                                                        String capacityString = task.getResult().getString(str[2]);
+                                                        int capacityInt =Integer.parseInt(capacityString);
+                                                        if(capacityInt < 5)
+                                                        {
+                                                            capacityInt++;
+                                                        }
+                                                        String setNewCapacity = String.valueOf(capacityInt);
+                                                        gymRef2.update(str[2], setNewCapacity);
+                                                        documentReference.update("Upcoming_Appt_2","");
+                                                    }
+                                                });
+                                    }
+                                }
+                            }
+                        });
                 documentReference.update("Upcoming_Appt_2","");
             }
         });
@@ -336,9 +547,42 @@ public class BookingPage extends AppCompatActivity
         Button delete4 = (Button) findViewById(R.id.button12);
         delete4.setBackgroundColor(Color.RED);
         delete4.setTextColor(Color.WHITE);
-        delete4.setOnClickListener(new View.OnClickListener() {
+        delete4.setOnClickListener(new View.OnClickListener()
+        {
             public void onClick(View v) {
                 tv4.setText("");
+                //Objective: Update rec center capacity
+                documentReference.get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                upcoming3 = task.getResult().getString("Upcoming_Appt_3");
+                                if( upcoming3 != null)
+                                {
+                                    String[] str =  upcoming3.split("\\|");
+                                    if(namesMap.get(str[0]) != null)
+                                    {
+                                        DocumentReference gymRef3 = fStore.collection(namesMap.get(str[0])).document(str[1]);
+                                        gymRef3.get()
+                                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task)
+                                                    {
+                                                        String capacityString = task.getResult().getString(str[2]);
+                                                        int capacityInt =Integer.parseInt(capacityString);
+                                                        if(capacityInt < 5)
+                                                        {
+                                                            capacityInt++;
+                                                        }
+                                                        String setNewCapacity = String.valueOf(capacityInt);
+                                                        gymRef3.update(str[2], setNewCapacity);
+                                                        documentReference.update("Upcoming_Appt_3","");
+                                                    }
+                                                });
+                                    }
+                                }
+                            }
+                        });
                 documentReference.update("Upcoming_Appt_3","");
             }
         });
@@ -347,9 +591,42 @@ public class BookingPage extends AppCompatActivity
         Button delete5 = (Button) findViewById(R.id.button14);
         delete5.setBackgroundColor(Color.RED);
         delete5.setTextColor(Color.WHITE);
-        delete5.setOnClickListener(new View.OnClickListener() {
+        delete5.setOnClickListener(new View.OnClickListener()
+        {
             public void onClick(View v) {
                 tv5.setText("");
+                //Objective: Update rec center capacity
+                documentReference.get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                upcoming4 = task.getResult().getString("Upcoming_Appt_4");
+                                if( upcoming4 != null)
+                                {
+                                    String[] str =  upcoming4.split("\\|");
+                                    if(namesMap.get(str[0]) != null)
+                                    {
+                                        DocumentReference gymRef4 = fStore.collection(namesMap.get(str[0])).document(str[1]);
+                                        gymRef4.get()
+                                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task)
+                                                    {
+                                                        String capacityString = task.getResult().getString(str[2]);
+                                                        int capacityInt =Integer.parseInt(capacityString);
+                                                        if(capacityInt < 5)
+                                                        {
+                                                            capacityInt++;
+                                                        }
+                                                        String setNewCapacity = String.valueOf(capacityInt);
+                                                        gymRef4.update(str[2], setNewCapacity);
+                                                        documentReference.update("Upcoming_Appt_4","");
+                                                    }
+                                                });
+                                    }
+                                }
+                            }
+                        });
                 documentReference.update("Upcoming_Appt_4","");
             }
         });
@@ -358,9 +635,42 @@ public class BookingPage extends AppCompatActivity
         Button delete6 = (Button) findViewById(R.id.button15);
         delete6.setBackgroundColor(Color.RED);
         delete6.setTextColor(Color.WHITE);
-        delete6.setOnClickListener(new View.OnClickListener() {
+        delete6.setOnClickListener(new View.OnClickListener()
+        {
             public void onClick(View v) {
                 tv6.setText("");
+                //Objective: Update rec center capacity
+                documentReference.get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                upcoming5 = task.getResult().getString("Upcoming_Appt_5");
+                                if( upcoming5 != null)
+                                {
+                                    String[] str =  upcoming5.split("\\|");
+                                    if(namesMap.get(str[0]) != null)
+                                    {
+                                        DocumentReference gymRef5 = fStore.collection(namesMap.get(str[0])).document(str[1]);
+                                        gymRef5.get()
+                                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task)
+                                                    {
+                                                        String capacityString = task.getResult().getString(str[2]);
+                                                        int capacityInt =Integer.parseInt(capacityString);
+                                                        if(capacityInt < 5)
+                                                        {
+                                                            capacityInt++;
+                                                        }
+                                                        String setNewCapacity = String.valueOf(capacityInt);
+                                                        gymRef5.update(str[2], setNewCapacity);
+                                                        documentReference.update("Upcoming_Appt_5","");
+                                                    }
+                                                });
+                                    }
+                                }
+                            }
+                        });
                 documentReference.update("Upcoming_Appt_5","");
             }
         });
