@@ -1,4 +1,5 @@
 package com.example.feature1;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -7,29 +8,34 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 //This is the booking window
 public class BookingPage extends AppCompatActivity
 {
-    static ArrayList<String> kept = new ArrayList<String>();
-    static ArrayList<String> cancelled = new ArrayList<String>();
+    DocumentReference checker;
     public static final String TAG = "TAG";
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
@@ -70,30 +76,60 @@ public class BookingPage extends AppCompatActivity
         days.add(todayPlusTwo_String);
         days.add(todayPlusThree_String);
 
+        //######################## BUILDS THE DATABASE ###############################
+        /*
+        if each day does not exist, then create it
+         */
         //Lyon center
         DocumentReference gymsCollectionLyon = fStore.collection("Lyon_Center").document(days.get(0));
         DocumentReference gymsCollectionLyon1 = fStore.collection("Lyon_Center").document(days.get(1));
         DocumentReference gymsCollectionLyon2 = fStore.collection("Lyon_Center").document(days.get(2));
         DocumentReference gymsCollectionLyon3 = fStore.collection("Lyon_Center").document(days.get(3));
-        Map<String, Object> lyonCenter = new HashMap<>();
-        lyonCenter.put("name", "Lyon Center");
-        lyonCenter.put("1000-1200", "5");
-        lyonCenter.put("1200-1400", "5");
-        lyonCenter.put("1400-1600", "5");
+
         ArrayList<DocumentReference> lyonList = new ArrayList<DocumentReference>();
         lyonList.add(gymsCollectionLyon);
         lyonList.add(gymsCollectionLyon1);
         lyonList.add(gymsCollectionLyon2);
         lyonList.add(gymsCollectionLyon3);
+
+        Map<String, Object> lyonCenter = new HashMap<>();
+        lyonCenter.put("name", "Lyon");
+        lyonCenter.put("1000-1200", "5");
+        lyonCenter.put("1200-1400", "5");
+        lyonCenter.put("1400-1600", "5");
+
+        //----
+        List<String> list = new ArrayList<>();
+        fStore.collection("Lyon_Center").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult())
+                    {
+                        list.add(document.getId());
+                    }
+                    Log.d(TAG, list.toString());
+                    TextView tea = (TextView)findViewById(R.id.view8);
+                    tea.setText( list.toString());
+
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
+        //-----
         for(int i= 0; i<4; i++)
         {
-            lyonList.get(i).set(lyonCenter).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void unused) {
-                    Log.d(TAG, "Loading gyms for" + userID);
-                }
-            });
+            if (!list.contains(days.get(i))) {
+                lyonList.get(i).set(lyonCenter).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d(TAG, "Loading gyms for" + userID);
+                    }
+                });
+            }
         }
+
 
         //HSC center
         DocumentReference gymsCollectionHSC = fStore.collection("HSC_Center").document(days.get(0));
@@ -101,7 +137,7 @@ public class BookingPage extends AppCompatActivity
         DocumentReference gymsCollectionHSC2= fStore.collection("HSC_Center").document(days.get(2));
         DocumentReference gymsCollectionHSC3= fStore.collection("HSC_Center").document(days.get(3));
         Map<String, Object> hscCenter = new HashMap<>();
-        hscCenter.put("name", "HSC Center");
+        hscCenter.put("name", "Cromwell");
         hscCenter.put("1000-1200", "5");
         hscCenter.put("1200-1400", "5");
         hscCenter.put("1400-1600", "5");
@@ -126,7 +162,7 @@ public class BookingPage extends AppCompatActivity
         DocumentReference gymsCollectionVillage2 = fStore.collection("Village_Center").document(days.get(2));
         DocumentReference gymsCollectionVillage3 = fStore.collection("Village_Center").document(days.get(3));
         Map<String, Object> villageCenter = new HashMap<>();
-        villageCenter.put("name", "Village Center");
+        villageCenter.put("name", "Village");
         villageCenter.put("1000-1200", "5");
         villageCenter.put("1200-1400", "5");
         villageCenter.put("1400-1600", "5");
@@ -151,7 +187,7 @@ public class BookingPage extends AppCompatActivity
         DocumentReference gymsCollectionAqua2 = fStore.collection("Aqua_Center").document(days.get(2));
         DocumentReference gymsCollectionAqua3 = fStore.collection("Aqua_Center").document(days.get(3));
         Map<String, Object> aquaCenter = new HashMap<>();
-        aquaCenter.put("name", "Aquatics Center");
+        aquaCenter.put("name", "Uytengsu");
         aquaCenter.put("1000-1200", "5");
         aquaCenter.put("1200-1400", "5");
         aquaCenter.put("1400-1600", "5");
@@ -185,10 +221,12 @@ public class BookingPage extends AppCompatActivity
             }
         });
 
-        //This section is for updating pieces of the database
+//        //This section is for updating pieces of the database
         documentReference.update("Upcoming_Appt_1","Lyon- Mar 13, 2023: 1000-1200");
         documentReference.update("Upcoming_Appt_2","Cromwell- Mar 28, 2023: 1400-1600");
+        documentReference.update("Upcoming_Appt_3","Sup Jadrian");
         documentReference.update("Previous_Appt_1","Village- Mar 7, 2023: 0800-1000");
+        documentReference.update("reminder_1","Village|May 9, 2023|0800-1000");
 
         TextView tv9 = (TextView)findViewById(R.id.textView);
         //This part of the code fetches info from the database
@@ -197,8 +235,34 @@ public class BookingPage extends AppCompatActivity
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error)
             {
                 tv9.setText("Welcome, " + value.getString("name"));
+
             }
         });
+
+        //--------------------------------------------------------------------------------------------------------------------------
+        Map<String, String> namesMap  = new HashMap<String, String>();
+        namesMap.put("Village", "Village_Center");
+        namesMap.put("Uytengsu", "Aqua_Center");
+        namesMap.put("Cromwell", "HSC_Center");
+        namesMap.put("Lyon", "Lyon_Center");
+        TextView r1 = (TextView)findViewById(R.id.view10);
+        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>()
+        {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error)
+            {
+                //r1.setText(value.getString("reminder_1"));
+                String rem1 = value.getString("reminder_1");
+                String[] values = rem1.split("\\|");
+                String recCenter = values[0];
+                String date = values[1];
+                String time = values[2];
+                //Now we have recCenter | Date | time
+                //Check the document first by looking at the hash map
+                checker = fStore.collection(namesMap.get(recCenter)).document(date);
+            }
+        });
+
 
         //First slot of previous appointment
         TextView tv2 = (TextView)findViewById(R.id.view);
@@ -206,7 +270,6 @@ public class BookingPage extends AppCompatActivity
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error)
             {
-                //DocumentReference prev1 = fStore.collection("users").document(userID);
                 tv2.setText(value.getString("Upcoming_Appt_1"));
             }
         });
