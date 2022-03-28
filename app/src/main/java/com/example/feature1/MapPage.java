@@ -88,7 +88,7 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
 
                 // added this to point to specific gym database -Jadrian
                 Bundle b = new Bundle();
-                b.putString("db", "LyonCenter");
+                b.putString("key", "Lyon_Center");
                 nextScreen.putExtras(b);
                 //
 
@@ -101,6 +101,9 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
             public void onClick(View v) {
                 setContentView(R.layout.activity_summary);
                 Intent nextScreen = new Intent(MapPage.this, Feature2.class);
+                Bundle b = new Bundle();
+                b.putString("key", "HSC_Center");
+                nextScreen.putExtras(b);
                 startActivity(nextScreen);
             }
         });
@@ -110,6 +113,9 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
             public void onClick(View v) {
                 setContentView(R.layout.activity_summary);
                 Intent nextScreen = new Intent(MapPage.this, Feature2.class);
+                Bundle b = new Bundle();
+                b.putString("key", "Village_Center");
+                nextScreen.putExtras(b);
                 startActivity(nextScreen);
             }
         });
@@ -119,6 +125,9 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
             public void onClick(View v) {
                 setContentView(R.layout.activity_summary);
                 Intent nextScreen = new Intent(MapPage.this, Feature2.class);
+                Bundle b = new Bundle();
+                b.putString("key", "Aqua_Center");
+                nextScreen.putExtras(b);
                 startActivity(nextScreen);
             }
         });
