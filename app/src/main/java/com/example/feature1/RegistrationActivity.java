@@ -1,16 +1,15 @@
 package com.example.feature1;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -72,6 +71,27 @@ public class RegistrationActivity extends AppCompatActivity {
                                 user.put("password", regPassword);
                                 user.put("photoURL", regPhotoURL);
                                 user.put("studentID", regStudentID);
+
+                                //Alex begins changing things here
+                                //Upcoming appointments
+                                user.put("Upcoming_Appt_1", "");
+                                user.put("Upcoming_Appt_2", "");
+                                user.put("Upcoming_Appt_3", "");
+                                user.put("Upcoming_Appt_4", "");
+                                user.put("Upcoming_Appt_5", "");
+
+                                //Previous appointments
+                                user.put("Previous_Appt_1", "");
+                                user.put("Previous_Appt_2", "");
+                                user.put("Previous_Appt_3", "");
+                                user.put("Previous_Appt_4", "");
+                                user.put("Previous_Appt_5", "");
+
+                                //reminder
+                                user.put("reminder_1", "");
+                                user.put("reminder_2", "");
+                                user.put("reminder_3", "");
+                                //End of Alex changing things
 
                                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
