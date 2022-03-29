@@ -59,6 +59,12 @@ public class BookingPage extends AppCompatActivity
         //Building the gyms section of the database
         Calendar calendar = Calendar.getInstance();
         Date today = calendar.getTime();
+        SimpleDateFormat sdf1 = new SimpleDateFormat("MMM dd, yyyy");
+        try {
+            today = sdf1.parse(sdf1.format(today));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         DateFormat dateFormat = DateFormat.getDateInstance();
         String today_String = dateFormat.format(today);
@@ -327,7 +333,7 @@ public class BookingPage extends AppCompatActivity
                                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                                 String capacityString = task.getResult().getString(str[2]);
                                                 int capacityInt = Integer.parseInt(capacityString);
-                                                r1.setText(str[0] + " " + str[1] + " " + str[2] + " slots" + "(" +capacityString+ "/5)");
+                                                r1.setText(str[0] + " " + str[1] + " " + str[2] + " capacity" + "(" +capacityString+ "/5)");
 
                                             }
                                         });
@@ -356,7 +362,7 @@ public class BookingPage extends AppCompatActivity
                                             {
                                                 String capacityString = task.getResult().getString(str[2]);
                                                 int capacityInt =Integer.parseInt(capacityString);
-                                                r2.setText(str[0] + " "+  str[1] + " "+ str[2] +" slots" + "(" +capacityString+ "/5)");
+                                                r2.setText(str[0] + " "+  str[1] + " "+ str[2] +" capacity" + "(" +capacityString+ "/5)");
                                             }
                                         });
                             }
@@ -384,7 +390,7 @@ public class BookingPage extends AppCompatActivity
                                             {
                                                 String capacityString = task.getResult().getString(str[2]);
                                                 int capacityInt =Integer.parseInt(capacityString);
-                                                r3.setText(str[0] + " "+  str[1] + " "+ str[2] +" slots" + "(" +capacityString+ "/5)");
+                                                r3.setText(str[0] + " "+  str[1] + " "+ str[2] +" capacity" + "(" +capacityString+ "/5)");
                                             }
                                         });
                             }
