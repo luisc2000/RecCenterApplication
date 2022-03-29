@@ -25,6 +25,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -39,7 +41,7 @@ public class BookingPage extends AppCompatActivity
     public static final String TAG = "TAG";
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
-    String rem1, rem2, rem3, upcoming1, upcoming2, upcoming3, upcoming4, upcoming5;
+    String rem1, rem2, rem3, upcoming1, upcoming2, upcoming3, upcoming4, upcoming5, prev1, prev2, prev3, prev4, prev5;
     String[] values = new String[3];
     String userID;
 
@@ -325,9 +327,8 @@ public class BookingPage extends AppCompatActivity
                                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                                 String capacityString = task.getResult().getString(str[2]);
                                                 int capacityInt = Integer.parseInt(capacityString);
-                                                if (capacityInt > 0) {
-                                                    r1.setText(str[0] + " " + str[1] + " " + str[2] + " slots" + "(" +capacityString+ "/5)");
-                                                }
+                                                r1.setText(str[0] + " " + str[1] + " " + str[2] + " slots" + "(" +capacityString+ "/5)");
+
                                             }
                                         });
                             }
@@ -355,10 +356,7 @@ public class BookingPage extends AppCompatActivity
                                             {
                                                 String capacityString = task.getResult().getString(str[2]);
                                                 int capacityInt =Integer.parseInt(capacityString);
-                                                if(capacityInt > 0)
-                                                {
-                                                    r2.setText(str[0] + " "+  str[1] + " "+ str[2] +" slots" + "(" +capacityString+ "/5)");
-                                                }
+                                                r2.setText(str[0] + " "+  str[1] + " "+ str[2] +" slots" + "(" +capacityString+ "/5)");
                                             }
                                         });
                             }
@@ -366,7 +364,7 @@ public class BookingPage extends AppCompatActivity
                     }
                 });
         //Reminder 3
-        TextView r3 = (TextView)findViewById(R.id.view7);
+        TextView r3 = (TextView)findViewById(R.id.view8);
         DocumentReference documentReference15 = fStore.collection("users").document(userID);
         documentReference15.get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -386,10 +384,7 @@ public class BookingPage extends AppCompatActivity
                                             {
                                                 String capacityString = task.getResult().getString(str[2]);
                                                 int capacityInt =Integer.parseInt(capacityString);
-                                                if(capacityInt > 0)
-                                                {
-                                                    r3.setText(str[0] + " "+  str[1] + " "+ str[2] +" slots" + "(" +capacityString+ "/5)");
-                                                }
+                                                r3.setText(str[0] + " "+  str[1] + " "+ str[2] +" slots" + "(" +capacityString+ "/5)");
                                             }
                                         });
                             }
@@ -397,56 +392,36 @@ public class BookingPage extends AppCompatActivity
                     }
                 });
 
-        //First slot of previous appointment
+
+        //-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-
+        //Reminder Delete Button section
+        Button deleteRem1 = (Button) findViewById(R.id.button);
+        deleteReminder(deleteRem1, documentReference, "reminder_1", r1);
+
+        Button deleteRem2 = (Button) findViewById(R.id.button2);
+        deleteReminder(deleteRem2, documentReference, "reminder_2", r2);
+
+        Button deleteRem3 = (Button) findViewById(R.id.button3);
+        deleteReminder(deleteRem3, documentReference, "reminder_3", r3);
+
+        //First slot of upcoming appointment
         TextView tv2 = (TextView)findViewById(R.id.view);
-        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error)
-            {
-                tv2.setText(value.getString("Upcoming_Appt_1"));
-            }
-        });
+        shift(documentReference, today, tv2, "Upcoming_Appt_1", "Previous_Appt_1");
 
         TextView tv3 = (TextView)findViewById(R.id.view3);
-        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error)
-            {
-                tv3.setText(value.getString("Upcoming_Appt_2"));
-            }
-        });
+        shift(documentReference, today, tv3, "Upcoming_Appt_2", "Previous_Appt_2");
 
         TextView tv4 = (TextView)findViewById(R.id.view5);
-        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error)
-            {
-                tv4.setText(value.getString("Upcoming_Appt_3"));
-            }
-        });
+        shift(documentReference, today, tv4, "Upcoming_Appt_3", "Previous_Appt_3");
 
         TextView tv5 = (TextView)findViewById(R.id.view6);
-        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error)
-            {
-                tv5.setText(value.getString("Upcoming_Appt_4"));
-            }
-        });
+        shift(documentReference, today, tv5, "Upcoming_Appt_4", "Previous_Appt_4");
 
         TextView tv6 = (TextView)findViewById(R.id.view13);
-        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error)
-            {
-                tv6.setText(value.getString("Upcoming_Appt_5"));
-            }
-        });
+        shift(documentReference, today, tv6, "Upcoming_Appt_5", "Previous_Appt_5");
         //############################# THIS CODE MAY NOT COMPLETE TEST LATER ######################################################
         //Appt 1 delete
         Button delete2 = (Button) findViewById(R.id.button11);
-        delete2.setBackgroundColor(Color.RED);
-        delete2.setTextColor(Color.WHITE);
         delete2.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v) {
@@ -490,8 +465,6 @@ public class BookingPage extends AppCompatActivity
 
         //Appt 2 delete
         Button delete3 = (Button) findViewById(R.id.button13);
-        delete3.setBackgroundColor(Color.RED);
-        delete3.setTextColor(Color.WHITE);
         delete3.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v) {
@@ -537,8 +510,6 @@ public class BookingPage extends AppCompatActivity
 
         //Appt 3 delete
         Button delete4 = (Button) findViewById(R.id.button12);
-        delete4.setBackgroundColor(Color.RED);
-        delete4.setTextColor(Color.WHITE);
         delete4.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v) {
@@ -581,8 +552,6 @@ public class BookingPage extends AppCompatActivity
 
         //Appt 4 delete
         Button delete5 = (Button) findViewById(R.id.button14);
-        delete5.setBackgroundColor(Color.RED);
-        delete5.setTextColor(Color.WHITE);
         delete5.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v) {
@@ -625,8 +594,6 @@ public class BookingPage extends AppCompatActivity
 
         //Appt 5 delete
         Button delete6 = (Button) findViewById(R.id.button15);
-        delete6.setBackgroundColor(Color.RED);
-        delete6.setTextColor(Color.WHITE);
         delete6.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v) {
@@ -667,6 +634,7 @@ public class BookingPage extends AppCompatActivity
             }
         });
 
+
         //Putting text in the previous bookings section
         TextView tv7 = (TextView)findViewById(R.id.view44);
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
@@ -685,6 +653,112 @@ public class BookingPage extends AppCompatActivity
                 tv8.setText(value.getString("Previous_Appt_2"));
             }
         });
+        TextView tv74 = (TextView)findViewById(R.id.view42);
+        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error)
+            {
+                tv74.setText(value.getString("Previous_Appt_3"));
+            }
+        });
+        TextView tv75 = (TextView)findViewById(R.id.view20);
+        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error)
+            {
+                tv75.setText(value.getString("Previous_Appt_4"));
+            }
+        });
+        TextView tv76 = (TextView)findViewById(R.id.view41);
+        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error)
+            {
+                tv76.setText(value.getString("Previous_Appt_5"));
+            }
+        });
+
+        //This part is for clearing all previous bookings
+        Button clear = (Button) findViewById(R.id.button4);
+        clear.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v) {
+                //Objective: Update rec center capacity
+                documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task)
+                            {
+                                tv7.setText("");
+                                tv8.setText("");
+                                tv74.setText("");
+                                tv75.setText("");
+                                tv76.setText("");
+                                documentReference.update("Previous_Appt_1", "");
+                                documentReference.update("Previous_Appt_2", "");
+                                documentReference.update("Previous_Appt_3", "");
+                                documentReference.update("Previous_Appt_4", "");
+                                documentReference.update("Previous_Appt_5", "");
+                            }
+                        });
+            }
+        });
 
     } //No
+    /**
+     * Shifts upcoming appointments to previous appointments if they are expired
+     */
+    void shift(DocumentReference documentReference, Date today, TextView tv, String upcoming, String previous)
+    {
+        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error)
+            {
+                String res = "";
+                res = value.getString(upcoming); //Lyon|Mar 27, 2022|1000-1200
+                if(res.isEmpty())
+                {
+                    //This is the case where the string is empty, so display nothing
+                    tv.setText("");
+                }
+                else
+                {
+                    String[] str = res.split("\\|");
+                    SimpleDateFormat sdf =new SimpleDateFormat("MMM dd, yyyy");
+                    try {
+                        Date date1 = sdf.parse(str[1]);
+                        if(date1.before(today))
+                        {
+                            //If the date is outdated, send it to the previous bookings page
+                            documentReference.update(upcoming, "");
+                            documentReference.update(previous, res);
+
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+                tv.setText(value.getString(upcoming));
+            }
+        });
+    }
+
+    /**
+     * Delete reminder buttons
+     * @param button
+     * @param documentReference
+     * @param string
+     * @param r
+     */
+    public void deleteReminder(Button button, DocumentReference documentReference, String string, TextView r)
+    {
+        button.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                documentReference.update(string,"");
+                r.setText("");
+            }
+        });
+    }
 } //No

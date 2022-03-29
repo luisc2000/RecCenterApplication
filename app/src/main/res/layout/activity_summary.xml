@@ -5,6 +5,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="99dp"
+        android:layout_height="41dp"
+        android:text="Clear"
+        app:backgroundTint="@color/myYellow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.351"
+        app:layout_constraintStart_toEndOf="@+id/view13"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.735" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="99dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="4dp"
+        android:text="Delete"
+        app:backgroundTint="@color/myRed"
+        app:layout_constraintBottom_toTopOf="@+id/button13"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.348"
+        app:layout_constraintStart_toEndOf="@+id/view"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.679" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="99dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="4dp"
+        android:text="Delete"
+        app:backgroundTint="@color/myRed"
+        app:layout_constraintBottom_toTopOf="@+id/button13"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.348"
+        app:layout_constraintStart_toEndOf="@+id/view"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.548" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="99dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="4dp"
+        android:text="Delete"
+        app:backgroundTint="@color/myRed"
+        app:layout_constraintBottom_toTopOf="@+id/button13"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.348"
+        app:layout_constraintStart_toEndOf="@+id/view"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.419" />
+
     <TextView
         android:id="@+id/view10"
         android:layout_width="249dp"
@@ -51,7 +106,7 @@
         android:id="@+id/textView9"
         android:layout_width="175dp"
         android:layout_height="28dp"
-        android:text="Reminder Availability"
+        android:text="Reminder Notification"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -106,6 +161,7 @@
         android:layout_width="99dp"
         android:layout_height="41dp"
         android:text="Delete"
+        app:backgroundTint="@color/myRed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.404"
@@ -175,6 +231,7 @@
         android:layout_height="41dp"
         android:layout_marginStart="4dp"
         android:text="Delete"
+        app:backgroundTint="@color/myRed"
         app:layout_constraintBottom_toTopOf="@+id/button13"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.348"
@@ -215,6 +272,7 @@
         android:layout_width="99dp"
         android:layout_height="41dp"
         android:text="Delete"
+        app:backgroundTint="@color/myRed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.404"
@@ -255,6 +313,7 @@
         android:layout_height="41dp"
         android:layout_marginBottom="3dp"
         android:text="Delete"
+        app:backgroundTint="@color/myRed"
         app:layout_constraintBottom_toTopOf="@+id/button12"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.404"
@@ -295,6 +354,7 @@
         android:layout_width="99dp"
         android:layout_height="41dp"
         android:text="Delete"
+        app:backgroundTint="@color/myRed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.404"
