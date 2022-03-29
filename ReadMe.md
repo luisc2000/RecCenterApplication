@@ -1,7 +1,7 @@
 # RecCenterApp
 
 ## How to run our project.
-We recommend Pixel 4 API 30. This phone has google play support which is important to see the map.
+We recommend Pixel 3 API 32 Google Play. This phone has google play support which is important to see the map.
 You may need our API Key for Google Maps. It is: AIzaSyC-vXET_YKJrz1UisWeelIiHgRupySXyhM
 
 ## Beginners guide

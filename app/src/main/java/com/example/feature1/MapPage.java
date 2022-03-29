@@ -138,7 +138,7 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
     {
         map = googleMap;
         LatLng village = new LatLng(34.02528414431285, -118.28585527462162);
-        map.addMarker(new MarkerOptions().position(village).title("USC Village Fitness Center").snippet(sample));
+        map.addMarker(new MarkerOptions().position(village).title("USC Village Fitness Center"));
 
         LatLng lyonCenter = new LatLng(34.02464874710005, -118.28839680318703);
         map.addMarker(new MarkerOptions().position(lyonCenter).title("Lyon Center"));
