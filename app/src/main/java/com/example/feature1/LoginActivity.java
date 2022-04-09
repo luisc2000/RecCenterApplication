@@ -18,9 +18,9 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText eName, ePassword; // prefix e is in java class
-    private Button eLogin;
-    private TextView eRegister;
+    public EditText eName, ePassword; // prefix e is in java class
+    public Button eLogin;
+    public TextView eRegister;
 
     FirebaseAuth fAuth;
     @Override
