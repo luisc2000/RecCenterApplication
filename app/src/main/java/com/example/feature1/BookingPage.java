@@ -40,9 +40,10 @@ public class BookingPage extends AppCompatActivity
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userID;
+    TextView r1;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
+    public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setTitle("Feature 3");
@@ -213,7 +214,8 @@ public class BookingPage extends AppCompatActivity
         namesMap.put("Cromwell","Cromwell_Center");
         namesMap.put("Lyon", "Lyon_Center");
 
-        TextView r1 = (TextView)findViewById(R.id.view10);
+        //TextView r1
+        r1 = (TextView)findViewById(R.id.view10);
 
         DocumentReference documentReference11 = fStore.collection("users").document(userID);
         populateReminder(documentReference11, "reminder_1", namesMap, r1);
