@@ -1,7 +1,6 @@
 package com.example.feature1;
 
 import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 public class Feature3WhiteBoxTests
