@@ -53,9 +53,13 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                name.setText(value.getString("name"));
-                email.setText(value.getString("email"));
-                studentID.setText(value.getString("studentID"));
+                if(value.exists())
+                {
+                    name.setText(value.getString("name"));
+                    email.setText(value.getString("email"));
+                    studentID.setText(value.getString("studentID"));
+                }
+
             }
         });
 

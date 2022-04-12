@@ -41,6 +41,19 @@ public class BookingPage extends AppCompatActivity
     FirebaseFirestore fStore;
     String userID;
     TextView r1;
+    int x;
+    Map<String, Object> lyonCenter = new HashMap<>();
+    ArrayList<DocumentReference> lyonList = new ArrayList<DocumentReference>();
+    Map<String, Object> hscCenter = new HashMap<>();
+    ArrayList<DocumentReference> hscList = new ArrayList<DocumentReference>();
+    Map<String, Object> villageCenter = new HashMap<>();
+    ArrayList<DocumentReference> villageList = new ArrayList<DocumentReference>();
+    Map<String, Object> aquaCenter = new HashMap<>();
+    ArrayList<DocumentReference> aquaList = new ArrayList<DocumentReference>();
+
+//    BookingPage(){
+//        x = 1;
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -94,13 +107,11 @@ public class BookingPage extends AppCompatActivity
         DocumentReference gymsCollectionLyon2 = fStore.collection("Lyon_Center").document(days.get(2));
         DocumentReference gymsCollectionLyon3 = fStore.collection("Lyon_Center").document(days.get(3));
 
-        ArrayList<DocumentReference> lyonList = new ArrayList<DocumentReference>();
         lyonList.add(gymsCollectionLyon);
         lyonList.add(gymsCollectionLyon1);
         lyonList.add(gymsCollectionLyon2);
         lyonList.add(gymsCollectionLyon3);
 
-        Map<String, Object> lyonCenter = new HashMap<>();
         lyonCenter.put("name", "Lyon");
         lyonCenter.put("1000-1200", "5");
         lyonCenter.put("1200-1400", "5");
@@ -113,12 +124,10 @@ public class BookingPage extends AppCompatActivity
         DocumentReference gymsCollectionHSC1 = fStore.collection("Cromwell_Center").document(days.get(1));
         DocumentReference gymsCollectionHSC2= fStore.collection("Cromwell_Center").document(days.get(2));
         DocumentReference gymsCollectionHSC3= fStore.collection("Cromwell_Center").document(days.get(3));
-        Map<String, Object> hscCenter = new HashMap<>();
         hscCenter.put("name", "Cromwell");
         hscCenter.put("1000-1200", "5");
         hscCenter.put("1200-1400", "5");
         hscCenter.put("1400-1600", "5");
-        ArrayList<DocumentReference> hscList = new ArrayList<DocumentReference>();
         hscList.add(gymsCollectionHSC);
         hscList.add(gymsCollectionHSC1);
         hscList.add(gymsCollectionHSC2);
@@ -132,12 +141,10 @@ public class BookingPage extends AppCompatActivity
         DocumentReference gymsCollectionVillage1 = fStore.collection("Village_Center").document(days.get(1));
         DocumentReference gymsCollectionVillage2 = fStore.collection("Village_Center").document(days.get(2));
         DocumentReference gymsCollectionVillage3 = fStore.collection("Village_Center").document(days.get(3));
-        Map<String, Object> villageCenter = new HashMap<>();
         villageCenter.put("name", "Village");
         villageCenter.put("1000-1200", "5");
         villageCenter.put("1200-1400", "5");
         villageCenter.put("1400-1600", "5");
-        ArrayList<DocumentReference> villageList = new ArrayList<DocumentReference>();
         villageList.add(gymsCollectionVillage);
         villageList.add(gymsCollectionVillage1);
         villageList.add(gymsCollectionVillage2);
@@ -151,12 +158,10 @@ public class BookingPage extends AppCompatActivity
         DocumentReference gymsCollectionAqua1 = fStore.collection("Aqua_Center").document(days.get(1));
         DocumentReference gymsCollectionAqua2 = fStore.collection("Aqua_Center").document(days.get(2));
         DocumentReference gymsCollectionAqua3 = fStore.collection("Aqua_Center").document(days.get(3));
-        Map<String, Object> aquaCenter = new HashMap<>();
         aquaCenter.put("name", "Uytengsu");
         aquaCenter.put("1000-1200", "5");
         aquaCenter.put("1200-1400", "5");
         aquaCenter.put("1400-1600", "5");
-        ArrayList<DocumentReference> aquaList = new ArrayList<DocumentReference>();
         aquaList.add(gymsCollectionAqua);
         aquaList.add(gymsCollectionAqua1);
         aquaList.add(gymsCollectionAqua2);
