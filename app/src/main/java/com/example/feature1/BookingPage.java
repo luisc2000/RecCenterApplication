@@ -41,7 +41,7 @@ public class BookingPage extends AppCompatActivity
     FirebaseFirestore fStore;
     String userID;
     TextView r1;
-    int x;
+    static int x = 1;
     Map<String, Object> lyonCenter = new HashMap<>();
     ArrayList<DocumentReference> lyonList = new ArrayList<DocumentReference>();
     Map<String, Object> hscCenter = new HashMap<>();

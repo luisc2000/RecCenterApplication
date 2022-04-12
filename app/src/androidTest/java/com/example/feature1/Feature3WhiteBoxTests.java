@@ -15,8 +15,6 @@ public class Feature3WhiteBoxTests
     @Test
     public void testMaps()
     {
-        BookingPage page = new BookingPage();
-        //In my booking page class, int x = 1
-//        System.out.println("The value of x is: " + page.x);
+        System.out.println("------here: " + BookingPage.x);
     }
 }
