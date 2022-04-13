@@ -29,8 +29,11 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
-    GoogleMap map;
-    String sample = "I am a very long string with too many words I am a very long string with too many words I am a very long string with too many words";
+    static GoogleMap map;
+    Button tem = findViewById(R.id.xmlLyonButton);
+    Button lyon = tem, cromwell, village, uytengsu;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +56,7 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                assert value != null;
                 if(value.exists())
                 {
                     name.setText(value.getString("name"));
@@ -71,7 +75,6 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
                 finish();
             }
         });
-//        startActivity(new Intent(getApplicationContext(), MapsFragment.class));
 
         ///Alex's booking button
         Button myButton = findViewById(R.id.bookingButton);
@@ -84,7 +87,6 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
         });
 
         // Jadrian's Buttons here
-        Button lyon = findViewById(R.id.xmlLyonButton);
         lyon.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 setContentView(R.layout.activity_summary);
@@ -95,12 +97,11 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
                 b.putString("key", "Lyon_Center");
                 nextScreen.putExtras(b);
                 //
-
                 startActivity(nextScreen);
             }
         });
 
-        Button cromwell = findViewById(R.id.xmlCromwellButton);
+        cromwell = findViewById(R.id.xmlCromwellButton);
         cromwell.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 setContentView(R.layout.activity_summary);
@@ -112,7 +113,7 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
-        Button village = findViewById(R.id.xmlVillageButton);
+        village = findViewById(R.id.xmlVillageButton);
         village.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 setContentView(R.layout.activity_summary);
@@ -124,7 +125,7 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
-        Button uytengsu = findViewById(R.id.xmlUytengsuButton);
+        uytengsu = findViewById(R.id.xmlUytengsuButton);
         uytengsu.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 setContentView(R.layout.activity_summary);

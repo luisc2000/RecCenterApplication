@@ -1,55 +1,51 @@
 package com.example.feature1;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.android.gms.maps.GoogleMap;
 
 import org.junit.Test;
+import org.mockito.Mock;
 
-public class Feature1WhiteBoxTests{
-    String username = "", password = "";
-    FirebaseAuth fAuth = FirebaseAuth.getInstance();
-    FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+public class Feature1WhiteBoxTests {
     String userID = "R4Gtu8xdrDbbriUrMvaoONYRYRh2";
+    GoogleMap mapTest; // google map to compare with
+    @Mock
+    LoginActivity loginActivity = mock(LoginActivity.class);
 
-//    fStore.collection("users").document(userID).get()
-//            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//        @Override
-//        public void onSuccess(DocumentSnapshot documentSnapshot) {
-//            documentSnapshot.toString().getString("name");
-//        }
-//    });
-//}
-
+    @Mock
+    MapPage mapPage = mock(MapPage.class);
 
     @Test
-    public void checkUsername() // at the beginning the string should be empty
+    public void checkEmail() // makes sure that the email was correctly set
     {
-        assertEquals("", username);
+        assertEquals("Bell@usc.edu", loginActivity.inputName);
     }
 
     @Test
-    public void checkPassword() // at the beginning the string should be empty
+    public void checkPassword() // makes sure that the password was correctly set
     {
-        assertEquals("", password);
-    }
-
-    String usernamePopulated = "JonBell@usc.edu", passwordPopulated = "JonBell";
-    @Test
-    public void checkUsernamePopulated() // at the beginning the string should be empty
-    {
-        assertEquals("JonBell@usc.edu", usernamePopulated);
+        assertEquals("JonBell", loginActivity.inputPassword);
     }
 
     @Test
-    public void checkPasswordPopulated() // at the beginning the string should be empty
+    public void userAndPassNotNull() // checks that the username and password are not empty
     {
-        assertEquals("JonBell", passwordPopulated);
+        assertTrue(loginActivity.emailAndPasswordSet(loginActivity.inputName, loginActivity.inputPassword));
+    }
+
+    @Test
+    public void userOrPassNull() // checks that the username or password is empty
+    {
+        assertFalse(loginActivity.emailAndPasswordSet(loginActivity.invalid, loginActivity.inputPassword));
+    }
+
+    @Test
+    public void checkMapIsCreated() // at the beginning the string should be empty
+    {
+        assertEquals(mapPage.map, mapTest);
     }
 }
