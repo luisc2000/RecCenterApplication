@@ -39,28 +39,21 @@ public class BookingPage extends AppCompatActivity
     public static final String TAG = "TAG";
     static FirebaseAuth fAuth;
     static FirebaseFirestore fStore;
-    static String userID;
-    static TextView r1;
     static Map<String, Object> lyonCenter = new HashMap<>();
     static ArrayList<DocumentReference> lyonList = new ArrayList<DocumentReference>();
     static Map<String, Object> hscCenter = new HashMap<>();
     static ArrayList<DocumentReference> hscList = new ArrayList<DocumentReference>();
-    static  Map<String, Object> villageCenter = new HashMap<>();
+    static Map<String, Object> villageCenter = new HashMap<>();
     static ArrayList<DocumentReference> villageList = new ArrayList<DocumentReference>();
     static Map<String, Object> aquaCenter = new HashMap<>();
     static ArrayList<DocumentReference> aquaList = new ArrayList<DocumentReference>();
     static Calendar calendar;
-    static Date today;
+    static Date today, todayPlusOne, todayPlusTwo, todayPlusThree;
     static SimpleDateFormat sdf1;
     static DateFormat dateFormat;
-    static String today_String;
-    static Date todayPlusOne;
-    static String todayPlusOne_String;
-    static Date todayPlusTwo;
-    static String todayPlusTwo_String;
-    static Date todayPlusThree;
-    static String todayPlusThree_String;
-    static  ArrayList<String> days = new ArrayList<String>();
+    static String userID, today_String ,todayPlusOne_String, todayPlusTwo_String , todayPlusThree_String;
+    static ArrayList<String> days = new ArrayList<String>();
+    static Map<String, String> namesMap  = new HashMap<String, String>();
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -73,39 +66,11 @@ public class BookingPage extends AppCompatActivity
         fStore = FirebaseFirestore.getInstance();
         userID = fAuth.getCurrentUser().getUid();
 
-        //Building the gyms section of the database
-        calendar = Calendar.getInstance();
-        today = calendar.getTime();
-        sdf1 = new SimpleDateFormat("MMM dd, yyyy");
-        try {
-            today = sdf1.parse(sdf1.format(today));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        dateFormat = DateFormat.getDateInstance();
-        today_String = dateFormat.format(today);
-
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        todayPlusOne = calendar.getTime();
-        todayPlusOne_String = dateFormat.format(todayPlusOne);
-
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        todayPlusTwo = calendar.getTime();
-        todayPlusTwo_String = dateFormat.format(todayPlusTwo);
-
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        todayPlusThree = calendar.getTime();
-        todayPlusThree_String = dateFormat.format(todayPlusThree);
-
-        days.add(today_String);
-        days.add(todayPlusOne_String);
-        days.add(todayPlusTwo_String);
-        days.add(todayPlusThree_String);
+        createCalendar();
 
         //######################## BUILDS THE DATABASE ###############################
         /*
-        if each day does not exist, then create it
+            if each day does not exist, then create it
          */
         //Lyon center
         DocumentReference gymsCollectionLyon = fStore.collection("Lyon_Center").document(days.get(0));
@@ -118,10 +83,7 @@ public class BookingPage extends AppCompatActivity
         lyonList.add(gymsCollectionLyon2);
         lyonList.add(gymsCollectionLyon3);
 
-        lyonCenter.put("name", "Lyon");
-        lyonCenter.put("1000-1200", "5");
-        lyonCenter.put("1200-1400", "5");
-        lyonCenter.put("1400-1600", "5");
+        mapCreate(lyonCenter,"Lyon");
         List<String> list1 = new ArrayList<>();
 
         buildDatabase(fStore, "Lyon_Center", list1, lyonList, days, lyonCenter);
@@ -130,10 +92,8 @@ public class BookingPage extends AppCompatActivity
         DocumentReference gymsCollectionHSC1 = fStore.collection("Cromwell_Center").document(days.get(1));
         DocumentReference gymsCollectionHSC2= fStore.collection("Cromwell_Center").document(days.get(2));
         DocumentReference gymsCollectionHSC3= fStore.collection("Cromwell_Center").document(days.get(3));
-        hscCenter.put("name", "Cromwell");
-        hscCenter.put("1000-1200", "5");
-        hscCenter.put("1200-1400", "5");
-        hscCenter.put("1400-1600", "5");
+
+        mapCreate(hscCenter,"Cromwell");
         hscList.add(gymsCollectionHSC);
         hscList.add(gymsCollectionHSC1);
         hscList.add(gymsCollectionHSC2);
@@ -147,10 +107,8 @@ public class BookingPage extends AppCompatActivity
         DocumentReference gymsCollectionVillage1 = fStore.collection("Village_Center").document(days.get(1));
         DocumentReference gymsCollectionVillage2 = fStore.collection("Village_Center").document(days.get(2));
         DocumentReference gymsCollectionVillage3 = fStore.collection("Village_Center").document(days.get(3));
-        villageCenter.put("name", "Village");
-        villageCenter.put("1000-1200", "5");
-        villageCenter.put("1200-1400", "5");
-        villageCenter.put("1400-1600", "5");
+
+        mapCreate(villageCenter,"Village");
         villageList.add(gymsCollectionVillage);
         villageList.add(gymsCollectionVillage1);
         villageList.add(gymsCollectionVillage2);
@@ -164,10 +122,8 @@ public class BookingPage extends AppCompatActivity
         DocumentReference gymsCollectionAqua1 = fStore.collection("Aqua_Center").document(days.get(1));
         DocumentReference gymsCollectionAqua2 = fStore.collection("Aqua_Center").document(days.get(2));
         DocumentReference gymsCollectionAqua3 = fStore.collection("Aqua_Center").document(days.get(3));
-        aquaCenter.put("name", "Uytengsu");
-        aquaCenter.put("1000-1200", "5");
-        aquaCenter.put("1200-1400", "5");
-        aquaCenter.put("1400-1600", "5");
+
+        mapCreate(aquaCenter,"Uytengsu");
         aquaList.add(gymsCollectionAqua);
         aquaList.add(gymsCollectionAqua1);
         aquaList.add(gymsCollectionAqua2);
@@ -219,14 +175,10 @@ public class BookingPage extends AppCompatActivity
 
         //Reminders section
         //Reminder 1
-        Map<String, String> namesMap  = new HashMap<String, String>();
-        namesMap.put("Village", "Village_Center");
-        namesMap.put("Uytengsu", "Aqua_Center");
-        namesMap.put("Cromwell","Cromwell_Center");
-        namesMap.put("Lyon", "Lyon_Center");
+        createNameConversions("Village", "Uytengsu", "Cromwell", "Lyon");
 
         //TextView r1
-        r1 = (TextView)findViewById(R.id.view10);
+        TextView r1 = (TextView)findViewById(R.id.view10);
 
         DocumentReference documentReference11 = fStore.collection("users").document(userID);
         populateReminder(documentReference11, "reminder_1", namesMap, r1);
@@ -382,11 +334,65 @@ public class BookingPage extends AppCompatActivity
         });
 
     } //No
+    /*
+        Creates a calendar based on the current day and populates three days ahead of it
+     */
+    static void createCalendar()
+    {
+        calendar = Calendar.getInstance();
+        today = calendar.getTime();
+        sdf1 = new SimpleDateFormat("MMM dd, yyyy");
+        try {
+            today = sdf1.parse(sdf1.format(today));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        dateFormat = DateFormat.getDateInstance();
+        today_String = dateFormat.format(today);
+
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        todayPlusOne = calendar.getTime();
+        todayPlusOne_String = dateFormat.format(todayPlusOne);
+
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        todayPlusTwo = calendar.getTime();
+        todayPlusTwo_String = dateFormat.format(todayPlusTwo);
+
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        todayPlusThree = calendar.getTime();
+        todayPlusThree_String = dateFormat.format(todayPlusThree);
+
+        days.add(today_String);
+        days.add(todayPlusOne_String);
+        days.add(todayPlusTwo_String);
+        days.add(todayPlusThree_String);
+    }
+    /**
+     * Appends the correct name, time, and capacity to argument center passed in
+     */
+    static void mapCreate(Map<String, Object> centerZ, String string)
+    {
+        String capacity = "5";
+        centerZ.put("name", string);
+        centerZ.put("1000-1200", capacity);
+        centerZ.put("1200-1400", capacity);
+        centerZ.put("1400-1600", capacity);
+    }
+
+    static void createNameConversions(String name1, String name2, String name3, String name4)
+    {
+        namesMap  = new HashMap<String, String>();
+        namesMap.put("Village", "Village_Center");
+        namesMap.put("Uytengsu", "Aqua_Center");
+        namesMap.put("Cromwell","Cromwell_Center");
+        namesMap.put("Lyon", "Lyon_Center");
+    }
 
     /**
-     * Shifts upcoming appointments to previous appointments if they are expired
+     * Builds the actual database by updating days
      */
-    void buildDatabase(FirebaseFirestore fStore, String name_Center, List<String> list, ArrayList<DocumentReference> centerList, ArrayList days, Map mapCenter)
+    static void buildDatabase(FirebaseFirestore fStore, String name_Center, List<String> list, ArrayList<DocumentReference> centerList, ArrayList days, Map mapCenter)
     {
         fStore.collection(name_Center).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -513,7 +519,6 @@ public class BookingPage extends AppCompatActivity
                             //If the date is outdated, send it to the previous bookings page
                             documentReference.update(upcoming, "");
                             documentReference.update(previous, res);
-
                         }
                     } catch (ParseException e) {
                         e.printStackTrace();
