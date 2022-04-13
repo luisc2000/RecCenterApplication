@@ -34,8 +34,6 @@ public class Feature1BlackBoxTests {
         onView(ViewMatchers.withId(R.id.edPassword)).perform(ViewActions.typeText(password));
         onView(withId(R.id.btnLogin)).perform(click());
         Thread.sleep(2600);
-//        onView(withId(R.id.LogoutButton)).perform(closeSoftKeyboard());
-//        onView(withId(R.id.LogoutButton)).perform(click());
     }
 
     @Test
