@@ -171,7 +171,7 @@ public class Feature3WhiteBoxTests extends Application
      * Ensures the date function within shift is accurately checking if the dates are correctly aligned
      */
     @Test
-    public void dateBeforeComparison()
+    public void testDateBeforeComparison()
     {
         Calendar testCalendar = Calendar.getInstance();
         Date testDay1 = testCalendar.getTime();

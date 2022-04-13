@@ -383,10 +383,10 @@ public class BookingPage extends AppCompatActivity
     static void createNameConversions(String name1, String name2, String name3, String name4)
     {
         namesMap  = new HashMap<String, String>();
-        namesMap.put("Village", "Village_Center");
-        namesMap.put("Uytengsu", "Aqua_Center");
-        namesMap.put("Cromwell","Cromwell_Center");
-        namesMap.put("Lyon", "Lyon_Center");
+        namesMap.put(name1, "Village_Center");
+        namesMap.put(name2, "Aqua_Center");
+        namesMap.put(name3,"Cromwell_Center");
+        namesMap.put(name4, "Lyon_Center");
     }
 
     /**
