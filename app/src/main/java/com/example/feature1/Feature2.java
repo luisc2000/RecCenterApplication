@@ -24,6 +24,10 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class Feature2 extends AppCompatActivity {
 
@@ -31,8 +35,9 @@ public class Feature2 extends AppCompatActivity {
     FirebaseFirestore fStore;
     String userId;
 
-    String collection;
-    ArrayList<String> document = new ArrayList<>();
+    static String collection;
+    static ArrayList<String> document = new ArrayList<>();
+    static Set<String> recCenters = new HashSet<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,25 +46,33 @@ public class Feature2 extends AppCompatActivity {
         getSupportActionBar().setTitle("Feature 2");
 
         // todo get day_1, day_2, day_3 's dates
-        Calendar calendar = Calendar.getInstance();
-        Date today = calendar.getTime();
+//        Calendar calendar = Calendar.getInstance();
+//        Date today = calendar.getTime();
+//
+//        DateFormat dateFormat = DateFormat.getDateInstance();
+//        String today_String = dateFormat.format(today);
+//
+//        calendar.add(Calendar.DAY_OF_YEAR, 1);
+//        Date todayPlusOne = calendar.getTime();
+//        String todayPlusOne_String = dateFormat.format(todayPlusOne);
+//
+//        calendar.add(Calendar.DAY_OF_YEAR, 1);
+//        Date todayPlusTwo = calendar.getTime();
+//        String todayPlusTwo_String = dateFormat.format(todayPlusTwo);
+//
+//        // add days to document arraylist
+//        document.add(today_String);
+//        document.add(todayPlusOne_String);
+//        document.add(todayPlusTwo_String);
+        //end
 
-        DateFormat dateFormat = DateFormat.getDateInstance();
-        String today_String = dateFormat.format(today);
 
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        Date todayPlusOne = calendar.getTime();
-        String todayPlusOne_String = dateFormat.format(todayPlusOne);
-
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        Date todayPlusTwo = calendar.getTime();
-        String todayPlusTwo_String = dateFormat.format(todayPlusTwo);
-
-        // add days to document arraylist
-        document.add(today_String);
-        document.add(todayPlusOne_String);
-        document.add(todayPlusTwo_String);
-
+        // todo added for WhiteBox Testing
+        document = getCalendarDates();
+        if(!testCalendarList(document)) return;
+        recCenters = instantiateRecCenters();
+        if(!validateRecCenterCollection(recCenters)) return;
+        //end
 
         // todo populate variables: collection and []document
         Bundle b = getIntent().getExtras();
@@ -836,9 +849,9 @@ public class Feature2 extends AppCompatActivity {
                             @Override
                             public void onSuccess(Void aVoid) {}
                         }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {}
-                                });
+                            @Override
+                            public void onFailure(@NonNull Exception e) {}
+                        });
                     }
                 });
     }
@@ -892,4 +905,90 @@ public class Feature2 extends AppCompatActivity {
                     }
                 });
     }
+
+    //WhiteBoxTesting 1
+    static public ArrayList<String> getCalendarDates(){
+        ArrayList<String> document = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+        Date today = calendar.getTime();
+
+        DateFormat dateFormat = DateFormat.getDateInstance();
+        String today_String = dateFormat.format(today);
+
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date todayPlusOne = calendar.getTime();
+        String todayPlusOne_String = dateFormat.format(todayPlusOne);
+
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date todayPlusTwo = calendar.getTime();
+        String todayPlusTwo_String = dateFormat.format(todayPlusTwo);
+
+        // add days to document arraylist
+        document.add(today_String);
+        document.add(todayPlusOne_String);
+        document.add(todayPlusTwo_String);
+        return document;
+    }
+
+    //WhiteBoxTesting 2
+    static public Map<String, String> testRecCenterNames(){
+        Map<String, String> hm
+                = new HashMap<String, String>();
+
+        hm.put("Lyon_Center", "Lyon");
+        hm.put("Aqua_Center", "Uytengsu");
+        hm.put("Cromwell_Center", "Cromwell");
+        hm.put("Village_Center", "Village");
+
+        return hm;
+    }
+
+    //WhiteBoxTesting 3
+    static public boolean testCalendarList(ArrayList<String> document){
+
+        document = getCalendarDates();
+
+        Calendar calendar = Calendar.getInstance();
+        Date today = calendar.getTime();
+        DateFormat dateFormat = DateFormat.getDateInstance();
+        String today_String = dateFormat.format(today);
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date todayPlusOne = calendar.getTime();
+        String todayPlusOne_String = dateFormat.format(todayPlusOne);
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date todayPlusTwo = calendar.getTime();
+        String todayPlusTwo_String = dateFormat.format(todayPlusTwo);
+
+        if(!(document.get(0).equals(today_String))) {
+            return false;
+        }
+        else if(!(document.get(1).equals(todayPlusOne_String))) {
+            return false;
+        }
+        else if(!(document.get(2).equals(todayPlusTwo_String))) {
+            return false;
+        }
+        else return true;
+    }
+
+    //WhiteBoxTesting 4
+    static public Set<String> instantiateRecCenters(){
+        Set<String> hs = new HashSet<>();
+        hs.add("Lyon_Center");
+        hs.add("Aqua_Center");
+        hs.add("Village_Center");
+        hs.add("Cromwell_Center");
+        return hs;
+    }
+
+    //WhiteBoxTesting 5
+    static public boolean validateRecCenterCollection(Set<String> hs){
+
+        if(!hs.contains("Lyon_Center")) return false;
+        else if(!hs.contains("Aqua_Center")) return false;
+        else if(!hs.contains("Village_Center")) return false;
+        else if(!hs.contains("Cromwell_Center")) return false;
+        else return true;
+    }
+
 }
