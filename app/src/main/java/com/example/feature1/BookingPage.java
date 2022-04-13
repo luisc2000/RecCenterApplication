@@ -37,23 +37,30 @@ import java.util.Map;
 public class BookingPage extends AppCompatActivity
 {
     public static final String TAG = "TAG";
-    FirebaseAuth fAuth;
-    FirebaseFirestore fStore;
-    String userID;
-    TextView r1;
-    static int x = 1;
-    Map<String, Object> lyonCenter = new HashMap<>();
-    ArrayList<DocumentReference> lyonList = new ArrayList<DocumentReference>();
-    Map<String, Object> hscCenter = new HashMap<>();
-    ArrayList<DocumentReference> hscList = new ArrayList<DocumentReference>();
-    Map<String, Object> villageCenter = new HashMap<>();
-    ArrayList<DocumentReference> villageList = new ArrayList<DocumentReference>();
-    Map<String, Object> aquaCenter = new HashMap<>();
-    ArrayList<DocumentReference> aquaList = new ArrayList<DocumentReference>();
-
-//    BookingPage(){
-//        x = 1;
-//    }
+    static FirebaseAuth fAuth;
+    static FirebaseFirestore fStore;
+    static String userID;
+    static TextView r1;
+    static Map<String, Object> lyonCenter = new HashMap<>();
+    static ArrayList<DocumentReference> lyonList = new ArrayList<DocumentReference>();
+    static Map<String, Object> hscCenter = new HashMap<>();
+    static ArrayList<DocumentReference> hscList = new ArrayList<DocumentReference>();
+    static  Map<String, Object> villageCenter = new HashMap<>();
+    static ArrayList<DocumentReference> villageList = new ArrayList<DocumentReference>();
+    static Map<String, Object> aquaCenter = new HashMap<>();
+    static ArrayList<DocumentReference> aquaList = new ArrayList<DocumentReference>();
+    static Calendar calendar;
+    static Date today;
+    static SimpleDateFormat sdf1;
+    static DateFormat dateFormat;
+    static String today_String;
+    static Date todayPlusOne;
+    static String todayPlusOne_String;
+    static Date todayPlusTwo;
+    static String todayPlusTwo_String;
+    static Date todayPlusThree;
+    static String todayPlusThree_String;
+    static  ArrayList<String> days = new ArrayList<String>();
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -67,31 +74,30 @@ public class BookingPage extends AppCompatActivity
         userID = fAuth.getCurrentUser().getUid();
 
         //Building the gyms section of the database
-        Calendar calendar = Calendar.getInstance();
-        Date today = calendar.getTime();
-        SimpleDateFormat sdf1 = new SimpleDateFormat("MMM dd, yyyy");
+        calendar = Calendar.getInstance();
+        today = calendar.getTime();
+        sdf1 = new SimpleDateFormat("MMM dd, yyyy");
         try {
             today = sdf1.parse(sdf1.format(today));
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        DateFormat dateFormat = DateFormat.getDateInstance();
-        String today_String = dateFormat.format(today);
+        dateFormat = DateFormat.getDateInstance();
+        today_String = dateFormat.format(today);
 
         calendar.add(Calendar.DAY_OF_YEAR, 1);
-        Date todayPlusOne = calendar.getTime();
-        String todayPlusOne_String = dateFormat.format(todayPlusOne);
+        todayPlusOne = calendar.getTime();
+        todayPlusOne_String = dateFormat.format(todayPlusOne);
 
         calendar.add(Calendar.DAY_OF_YEAR, 1);
-        Date todayPlusTwo = calendar.getTime();
-        String todayPlusTwo_String = dateFormat.format(todayPlusTwo);
+        todayPlusTwo = calendar.getTime();
+        todayPlusTwo_String = dateFormat.format(todayPlusTwo);
 
         calendar.add(Calendar.DAY_OF_YEAR, 1);
-        Date todayPlusThree = calendar.getTime();
-        String todayPlusThree_String = dateFormat.format(todayPlusThree);
+        todayPlusThree = calendar.getTime();
+        todayPlusThree_String = dateFormat.format(todayPlusThree);
 
-        ArrayList<String> days = new ArrayList<String>();
         days.add(today_String);
         days.add(todayPlusOne_String);
         days.add(todayPlusTwo_String);
