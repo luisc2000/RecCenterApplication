@@ -1,13 +1,9 @@
 package com.example.feature1;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
 import android.app.Application;
-
 import org.junit.Test;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,54 +14,9 @@ import java.util.Map;
 
 public class Feature3WhiteBoxTests extends Application
 {
-    public static final String TAG = "TAG";
-//    public static FirebaseApp.initializeApp(this);
-//    public static FirebaseAuth fAuth = FirebaseAuth.getInstance();
-//    public static FirebaseFirestore fStore;
-
-//    @Mock
-//    BookingPage bookingPage = mock(BookingPage.class);
-
-//    @BeforeClass
-//    public static void init() {
-//
-//    }
-//
-//    @Test
-//    public void accessDB()
-//    {
-//        assertNotNull(bookingPage.x);
-//    }
-
-
-
     @Test
     public void testCorrectDate()
     {
-//        BookingPage.calendar = Calendar.getInstance();
-//        BookingPage.today = BookingPage.calendar.getTime();
-//        BookingPage.sdf1 = new SimpleDateFormat("MMM dd, yyyy");
-//        try {
-//            BookingPage.today = BookingPage.sdf1.parse(BookingPage.sdf1.format(BookingPage.today));
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//        BookingPage.dateFormat = DateFormat.getDateInstance();
-//        BookingPage.today_String = BookingPage.dateFormat.format(BookingPage.today);
-//        BookingPage. calendar.add(Calendar.DAY_OF_YEAR, 1);
-//        BookingPage.todayPlusOne = BookingPage.calendar.getTime();
-//        BookingPage.todayPlusOne_String = BookingPage.dateFormat.format(BookingPage.todayPlusOne);
-//        BookingPage.calendar.add(Calendar.DAY_OF_YEAR, 1);
-//        BookingPage.todayPlusTwo = BookingPage.calendar.getTime();
-//        BookingPage.todayPlusTwo_String = BookingPage.dateFormat.format(BookingPage.todayPlusTwo);
-//        BookingPage.calendar.add(Calendar.DAY_OF_YEAR, 1);
-//        BookingPage.todayPlusThree = BookingPage.calendar.getTime();
-//        BookingPage.todayPlusThree_String = BookingPage.dateFormat.format(BookingPage.todayPlusThree);
-//        BookingPage.days.add(BookingPage.today_String);
-//        BookingPage.days.add(BookingPage.todayPlusOne_String);
-//        BookingPage.days.add(BookingPage.todayPlusTwo_String);
-//        BookingPage.days.add(BookingPage.todayPlusThree_String);
-
         BookingPage.createCalendar();
 
         //Time Comparison against given class
@@ -82,12 +33,10 @@ public class Feature3WhiteBoxTests extends Application
         testCalendar.add(Calendar.DAY_OF_YEAR, 1);
         Date testDay2 = testCalendar.getTime();
         String testDay2_String = testFormat.format(testDay2);
-        print(testDay2_String);
 
         testCalendar.add(Calendar.DAY_OF_YEAR, 1);
         Date testDay3 = testCalendar.getTime();
         String testDay3_String = testFormat.format(testDay3);
-        print(testDay3_String);
 
         testCalendar.add(Calendar.DAY_OF_YEAR, 1);
         Date testDay4 = testCalendar.getTime();
@@ -98,31 +47,6 @@ public class Feature3WhiteBoxTests extends Application
         assertEquals(BookingPage.days.get(2), testDay3_String);
         assertEquals(BookingPage.days.get(3), testDay4_String);
     }
-
-//    @Test
-//    public void testBuildDatabase()
-//    {
-////        FirebaseApp.initializeApp(this);
-////        FirebaseAuth fAuth = FirebaseAuth.getInstance();
-////        FirebaseFirestore fStore = FirebaseFirestore.getInstance();
-//        BookingPage.userID = "l2OYfCxkAjO1RdzUQYulP9d4gl52";
-//        ArrayList<String> days = new ArrayList<String>();
-//        days = createCalendar();
-//        DocumentReference gymsCollectionTest = fStore.collection("Test_Center").document(days.get(0));
-//        DocumentReference gymsCollectionTest1 = fStore.collection("Test_Center").document(days.get(1));
-//        DocumentReference gymsCollectionTest2 = fStore.collection("Test_Center").document(days.get(2));
-//        DocumentReference gymsCollectionTest3 = fStore.collection("Test_Center").document(days.get(3));
-//        ArrayList<DocumentReference> testList = new ArrayList<DocumentReference>();
-//        testList.add(gymsCollectionTest);
-//        testList.add(gymsCollectionTest1);
-//        testList.add(gymsCollectionTest2);
-//        testList.add(gymsCollectionTest3);
-//        Map<String, Object> testCenter = new HashMap<>();
-//        testCenter.put("name", "Test");
-//        testCenter.put("1000-1200", "5");
-//        testCenter.put("1200-1400", "5");
-//        testCenter.put("1400-1600", "5");
-//        List<String> list1 = new ArrayList<>();
 
     /*
         Tests that the function mapCreate within BookingPage is working
@@ -207,34 +131,4 @@ public class Feature3WhiteBoxTests extends Application
         assertEquals(BookingPage.namesMap.get("Cromwell"),"Cromwell_Center" );
         assertEquals(BookingPage.namesMap.get("Lyon"),"Lyon_Center" );
     }
-
-    /**
-     * These are helper functions
-     */
-    public void print(String string)
-    {
-        System.out.println(string);
-    }
-
 }
-//import static com.example.feature1.BookingPage.today_String;
-//        import static org.junit.Assert.assertEquals;
-//
-//        import android.app.Application;
-//
-//        import com.google.firebase.FirebaseApp;
-//        import com.google.firebase.auth.FirebaseAuth;
-//        import com.google.firebase.firestore.DocumentReference;
-//        import com.google.firebase.firestore.FirebaseFirestore;
-//
-//        import org.junit.Test;
-//
-//        import java.text.DateFormat;
-//        import java.text.ParseException;
-//        import java.text.SimpleDateFormat;
-//        import java.util.ArrayList;
-//        import java.util.Calendar;
-//        import java.util.Date;
-//        import java.util.HashMap;
-//        import java.util.List;
-//        import java.util.Map;

@@ -20,12 +20,9 @@ import org.junit.runner.RunWith;
 @LargeTest
 public class Feature3BlackBoxTests
 {
-
-
     @Rule
     public ActivityScenarioRule<LoginActivity> activityRule =
             new ActivityScenarioRule<>(LoginActivity.class);
-
     @Test
     public void testReminders() throws InterruptedException {
         String username = "AutoTestR@usc.edu", password = "tester";
@@ -34,6 +31,7 @@ public class Feature3BlackBoxTests
         onView(withId(R.id.btnLogin)).perform(ViewActions.click());
         Thread.sleep(1000);
         onView(withId(R.id.bookingButton)).perform(ViewActions.click());
+        Thread.sleep(500);
         onView(withText("Village Apr 12, 2022 1200-1400 capacity(3/5)")).check(matches(isDisplayed()));
         onView(withText("Uytengsu Apr 12, 2022 1200-1400 capacity(1/5)")).check(matches(isDisplayed()));
         onView(withText("Cromwell Apr 11, 2022 1200-1400 capacity(0/5)")).check(matches(isDisplayed()));
@@ -47,12 +45,12 @@ public class Feature3BlackBoxTests
         onView(withId(R.id.btnLogin)).perform(ViewActions.click());
         Thread.sleep(1000);
         onView(withId(R.id.bookingButton)).perform(ViewActions.click());
+        Thread.sleep(500);
         onView(withText("Lyon|Apr 13, 2023|1200-1400")).check(matches(withId(R.id.view)));
         onView(withText("Village|Apr 11, 2023|1000-1200")).check(matches(withId(R.id.view3)));
         onView(withText("Cromwell|Apr 12, 2023|1200-1400")).check(matches(withId(R.id.view5)));
         onView(withText("Uytengsu|Apr 13, 2023|1000-1200")).check(matches(withId(R.id.view6)));
-//        onView(withText("Cromwell|Apr 12, 2023|1000-1200")).check(matches(withId(R.id.view13)));
-        Thread.sleep(100);
+        Thread.sleep(1000);
         onView(withId(R.id.button15)).perform(ViewActions.click());
     }
 
@@ -64,6 +62,7 @@ public class Feature3BlackBoxTests
         onView(withId(R.id.btnLogin)).perform(ViewActions.click());
         Thread.sleep(1000);
         onView(withId(R.id.bookingButton)).perform(ViewActions.click());
+        Thread.sleep(500);
         onView(withText("Cromwell|Mar 27, 2022|1200-1400")).check(matches(withId(R.id.view44)));
         onView(withText("Lyon|Mar 29, 2022|1400-1600")).check(matches(withId(R.id.view43)));
         onView(withText("Uytengsu|Apr 8, 2022|1400-1600")).check(matches(withId(R.id.view42)));
@@ -79,7 +78,7 @@ public class Feature3BlackBoxTests
         onView(withId(R.id.btnLogin)).perform(ViewActions.click());
         Thread.sleep(1000);
         onView(withId(R.id.bookingButton)).perform(ViewActions.click());
-        //onView(withText("Lyon Apr 10, 2022 1200-1400 capacity(0/5)")).check(matches(isDisplayed()));
+        Thread.sleep(500);
         onView(withText("Lyon Apr 10, 2022 1200-1400 capacity(0/5)")).check(matches(withId(R.id.view10)));
         onView(withText("Cromwell Apr 11, 2022 1400-1600 capacity(2/5)")).check(matches(withId(R.id.view7)));
         onView(withText("Uytengsu Apr 12, 2022 1400-1600 capacity(2/5)")).check(matches(withId(R.id.view8)));
