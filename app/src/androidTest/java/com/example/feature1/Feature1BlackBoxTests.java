@@ -64,17 +64,18 @@ public class Feature1BlackBoxTests {
         onView(ViewMatchers.withId(R.id.map)).perform(ViewActions.swipeLeft());
         Thread.sleep(2000);
     }
-//    @Test
-//    public void testNewUser() { // this test creates a new user
-//        onView(withId(R.id.tvRegister)).perform(ViewActions.click());
-//        String name = "Your Name Here", email = "email@usc.edu", password = "RandomPassword", id = "123456", URL = "url.com";
-//        onView(ViewMatchers.withId(R.id.etFullName)).perform(ViewActions.typeText(name));
-//        onView(ViewMatchers.withId(R.id.etRegName)).perform(ViewActions.typeText(email));
-//        onView(ViewMatchers.withId(R.id.etStudentID)).perform(ViewActions.typeText(id));
-//        onView(ViewMatchers.withId(R.id.etRegPassword)).perform(ViewActions.typeText(password));
-//        onView(ViewMatchers.withId(R.id.etPhotoURL)).perform(ViewActions.typeText(URL));
-//        onView(withId(R.id.btnRegister)).perform(ViewActions.click());
-//    }
+    @Test
+    public void testNewUser() { // this test creates a new user
+        onView(withId(R.id.tvRegister)).perform(ViewActions.click());
+        String name = "Your Name Here", email = "newemail@usc.edu", password = "RandomPassword", id = "123456", URL = "url.com";
+        onView(ViewMatchers.withId(R.id.etFullName)).perform(ViewActions.typeText(name));
+        onView(ViewMatchers.withId(R.id.etRegName)).perform(ViewActions.typeText(email));
+        onView(ViewMatchers.withId(R.id.etStudentID)).perform(ViewActions.typeText(id));
+        onView(ViewMatchers.withId(R.id.etRegPassword)).perform(ViewActions.typeText(password));
+        onView(ViewMatchers.withId(R.id.etPhotoURL)).perform(ViewActions.typeText(URL));
+        onView(ViewMatchers.isRoot()).perform(ViewActions.closeSoftKeyboard());
+        onView(withId(R.id.btnRegister)).perform(ViewActions.click());
+    }
 
     @Test
     public void testRecCenters() throws InterruptedException {
