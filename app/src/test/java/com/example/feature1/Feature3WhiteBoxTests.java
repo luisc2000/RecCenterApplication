@@ -107,7 +107,6 @@ public class Feature3WhiteBoxTests extends Application
         }
         BookingPage.today = testDay1;
 
-
         String res = "Cromwell|Apr 11, 2021|1000-1200";
         String[] str = res.split("\\|");
         SimpleDateFormat sdf =new SimpleDateFormat("MMM dd, yyyy");
