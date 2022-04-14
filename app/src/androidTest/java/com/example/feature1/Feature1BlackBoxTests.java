@@ -67,20 +67,13 @@ public class Feature1BlackBoxTests {
     @Test
     public void testNewUser() { // this test creates a new user
         onView(withId(R.id.tvRegister)).perform(ViewActions.click());
-<<<<<<< HEAD
-        String name = "Your Name Here", email = "newemail@usc.edu", password = "RandomPassword", id = "123456", URL = "url.com";
-=======
-        String name = "Your Name Here", email = "email@usc.edu", password = "RandomPassword", id = "123456", URL = "url.com";
->>>>>>> bd12f07f5bae7d263a897f5d9a88a58e28b426c3
+        String name = "Your Name Here", email = "verynewemail@usc.edu", password = "RandomPassword", id = "123456", URL = "url.com";
         onView(ViewMatchers.withId(R.id.etFullName)).perform(ViewActions.typeText(name));
         onView(ViewMatchers.withId(R.id.etRegName)).perform(ViewActions.typeText(email));
         onView(ViewMatchers.withId(R.id.etStudentID)).perform(ViewActions.typeText(id));
         onView(ViewMatchers.withId(R.id.etRegPassword)).perform(ViewActions.typeText(password));
         onView(ViewMatchers.withId(R.id.etPhotoURL)).perform(ViewActions.typeText(URL));
-<<<<<<< HEAD
         onView(ViewMatchers.isRoot()).perform(ViewActions.closeSoftKeyboard());
-=======
->>>>>>> bd12f07f5bae7d263a897f5d9a88a58e28b426c3
         onView(withId(R.id.btnRegister)).perform(ViewActions.click());
     }
 
