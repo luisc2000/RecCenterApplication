@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
 
+    final static boolean[] notifs = {false};
     TextView name, email, studentID;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
@@ -66,6 +70,22 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
                 finish();
             }
         });
+
+        // switch for Alex
+
+        Switch mySwitch = findViewById(R.id.switch1);
+        mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    notifs[0] = true;
+                    Toast.makeText(getBaseContext(), "On", Toast.LENGTH_SHORT).show();
+                } else {
+                    notifs[0] = false;
+                    Toast.makeText(getBaseContext(), "Off", Toast.LENGTH_SHORT).show();
+                }
+            }
+            });
 
         ///Alex's booking button
         Button myButton = findViewById(R.id.bookingButton);
