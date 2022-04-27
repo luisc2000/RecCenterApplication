@@ -1,14 +1,18 @@
 package com.example.feature1;
+
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,6 +30,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -55,11 +60,14 @@ public class BookingPage extends AppCompatActivity
     static ArrayList<String> days = new ArrayList<String>();
     static Map<String, String> namesMap  = new HashMap<String, String>();
 
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setTitle("Feature 3");
+
+        boolean reminderFlag = false;
 
         setContentView(R.layout.activity_summary);
         fAuth = FirebaseAuth.getInstance();
@@ -332,6 +340,55 @@ public class BookingPage extends AppCompatActivity
                         });
             }
         });
+        if(MapPage.notifs[0] == true)
+        {
+            documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+                @RequiresApi(api = Build.VERSION_CODES.O)
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error)
+                {
+                    String r1 = value.getString("reminder_1");
+                    String r2 = value.getString("reminder_2");
+                    String r3 = value.getString("reminder_3");
+
+//                  now.getHour() + now.getMinute()
+                    LocalTime now = LocalTime.now();
+
+                    // view10
+
+                    if(!r1.isEmpty())
+                    {
+                        String[] r1_array = r1.split("\\|");
+                        if(r1_array[1].equals(today_String))
+                        {
+                            timeReminder(r1_array);
+//                            TextView r1viewer = findViewById(R.id.view10);
+//                            String tt = r1viewer.getText().toString();
+                            //Toast.makeText(getApplicationContext(), "Reservation today: " + r1, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    if(!r2.isEmpty())
+                    {
+                        String[] r2_array = r2.split("\\|");
+                        if(r2_array[1].equals(today_String))
+                        {
+                            timeReminder(r2_array);
+                            //Toast.makeText(getApplicationContext(), "Reservation today: " + r2, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    if(!r3.isEmpty())
+                    {
+                        String[] r3_array = r3.split("\\|");
+                        if(r3_array[1].equals(today_String))
+                        {
+                            timeReminder(r3_array);
+                            //Toast.makeText(getApplicationContext(), "Reservation today: " + r3, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                }
+            });
+        }
 
     } //No
     /*
@@ -546,5 +603,31 @@ public class BookingPage extends AppCompatActivity
                 r.setText("");
             }
         });
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void timeReminder(String[] r_array)
+    {
+        LocalTime now = LocalTime.now();
+        if(r_array[2].equals("1000-1200"))
+        {
+            if(now.getHour() == 9)
+            {
+                Toast.makeText(getApplicationContext(), "Reservation in one hour: " + r_array[0] + " " + r_array[2], Toast.LENGTH_SHORT).show();
+            }
+        }
+        if(r_array[2].equals("1200-1400"))
+        {
+            if(now.getHour() == 11)
+            {
+                Toast.makeText(getApplicationContext(), "Reservation in one hour: " + r_array[0] + " " + r_array[2], Toast.LENGTH_SHORT).show();
+            }
+        }
+        if(r_array[2].equals("1400-1600"))
+        {
+            if(now.getHour() == 13)
+            {
+                Toast.makeText(getApplicationContext(), "Reservation in one hour: " + r_array[0] + " " + r_array[2], Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 } //No

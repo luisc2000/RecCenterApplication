@@ -107,4 +107,15 @@ public class Feature3BlackBoxTests
         onView(withId(R.id.button4)).perform(ViewActions.click());
         onView(withId(R.id.backSummary)).perform(ViewActions.click());
     }
+
+    @Test
+    public void AlexTest() throws InterruptedException {
+        String username = "Saul@usc.edu", password = "tester";
+        onView(ViewMatchers.withId(R.id.etName)).perform(ViewActions.typeText(username));
+        onView(ViewMatchers.withId(R.id.edPassword)).perform(ViewActions.typeText(password));
+        onView(withId(R.id.btnLogin)).perform(ViewActions.click());
+        Thread.sleep(1000);
+        onView(withId(R.id.bookingButton)).perform(ViewActions.click());
+        Thread.sleep(100000);
+    }
 }
