@@ -1,7 +1,9 @@
 package com.example.feature1;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -29,6 +31,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
 
     final static boolean[] notifs = {false};
+    static boolean test = false;
     TextView name, email, studentID;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
@@ -73,15 +76,30 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
 
         // switch for Alex
 
+        SharedPreferences app_preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+
+        test = app_preferences.getBoolean("test", false);
+
         Switch mySwitch = findViewById(R.id.switch1);
+        mySwitch.setChecked(test);
+
         mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
-                    notifs[0] = true;
+                    boolean test2 = true;
+                    SharedPreferences.Editor editor = app_preferences.edit();
+                    editor.putBoolean("test", test2);
+                    editor.commit();
+
                     Toast.makeText(getBaseContext(), "On", Toast.LENGTH_SHORT).show();
                 } else {
-                    notifs[0] = false;
+                    boolean test2 = false;
+                    SharedPreferences.Editor editor = app_preferences.edit();
+                    editor.putBoolean("test", test2);
+                    editor.commit();
+
                     Toast.makeText(getBaseContext(), "Off", Toast.LENGTH_SHORT).show();
                 }
             }
