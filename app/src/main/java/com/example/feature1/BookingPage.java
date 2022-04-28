@@ -157,18 +157,18 @@ public class BookingPage extends AppCompatActivity
 
         //This section is for testing pieces of the database
         /**
-        documentReference.update("Upcoming_Appt_1","Lyon|Mar 28, 2022|1400-1600");
-        documentReference.update("Upcoming_Appt_2","Cromwell|Mar 29, 2022|1400-1600");
-        documentReference.update("Previous_Appt_1","Village|Mar 29, 2022|0800-1000");
-        documentReference.update("reminder_1","Village|Mar 27, 2022|1000-1200");
-        documentReference.update("reminder_2","Lyon|Mar 27, 2022|1000-1200");
-        documentReference.update("reminder_3","Cromwell|Mar 28, 2022|1000-1200");
+         documentReference.update("Upcoming_Appt_1","Lyon|Mar 28, 2022|1400-1600");
+         documentReference.update("Upcoming_Appt_2","Cromwell|Mar 29, 2022|1400-1600");
+         documentReference.update("Previous_Appt_1","Village|Mar 29, 2022|0800-1000");
+         documentReference.update("reminder_1","Village|Mar 27, 2022|1000-1200");
+         documentReference.update("reminder_2","Lyon|Mar 27, 2022|1000-1200");
+         documentReference.update("reminder_3","Cromwell|Mar 28, 2022|1000-1200");
 
-        Lyon|Mar 28, 2022|1000-1200
-        Village|Mar 29, 2022|1000-1200
-        Uytengsu|Mar 30, 2022|1200-1400
-        Cromwell|Mar 31, 2022|1000-1200
-        Village|Mar 30, 2022|1400-1600
+         Lyon|Mar 28, 2022|1000-1200
+         Village|Mar 29, 2022|1000-1200
+         Uytengsu|Mar 30, 2022|1200-1400
+         Cromwell|Mar 31, 2022|1000-1200
+         Village|Mar 30, 2022|1400-1600
          **/
 
         TextView tv9 = (TextView)findViewById(R.id.textView);
@@ -322,22 +322,22 @@ public class BookingPage extends AppCompatActivity
             public void onClick(View v) {
                 //Objective: Update rec center capacity
                 documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
+                    @Override
 
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task)
-                            {
-                                tv7.setText("");
-                                tv8.setText("");
-                                tv74.setText("");
-                                tv75.setText("");
-                                tv76.setText("");
-                                documentReference.update("Previous_Appt_1", "");
-                                documentReference.update("Previous_Appt_2", "");
-                                documentReference.update("Previous_Appt_3", "");
-                                documentReference.update("Previous_Appt_4", "");
-                                documentReference.update("Previous_Appt_5", "");
-                            }
-                        });
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task)
+                    {
+                        tv7.setText("");
+                        tv8.setText("");
+                        tv74.setText("");
+                        tv75.setText("");
+                        tv76.setText("");
+                        documentReference.update("Previous_Appt_1", "");
+                        documentReference.update("Previous_Appt_2", "");
+                        documentReference.update("Previous_Appt_3", "");
+                        documentReference.update("Previous_Appt_4", "");
+                        documentReference.update("Previous_Appt_5", "");
+                    }
+                });
             }
         });
         if(MapPage.notifs[0] == true)
@@ -610,7 +610,7 @@ public class BookingPage extends AppCompatActivity
         LocalTime now = LocalTime.now();
         if(r_array[2].equals("1000-1200"))
         {
-            if(now.getHour() == 9)
+            if(now.getHour() == 18)
             {
                 Toast.makeText(getApplicationContext(), "Reservation in one hour: " + r_array[0] + " " + r_array[2], Toast.LENGTH_SHORT).show();
             }
