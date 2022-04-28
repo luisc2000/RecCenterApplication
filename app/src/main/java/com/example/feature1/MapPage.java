@@ -93,14 +93,14 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
                     editor.putBoolean("test", test2);
                     editor.commit();
 
-                    Toast.makeText(getBaseContext(), "On", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "Notifications On", Toast.LENGTH_SHORT).show();
                 } else {
                     boolean test2 = false;
                     SharedPreferences.Editor editor = app_preferences.edit();
                     editor.putBoolean("test", test2);
                     editor.commit();
 
-                    Toast.makeText(getBaseContext(), "Off", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "Notifications Off", Toast.LENGTH_SHORT).show();
                 }
             }
             });

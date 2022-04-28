@@ -611,7 +611,7 @@ public class BookingPage extends AppCompatActivity
         LocalTime now = LocalTime.now();
         if(r_array[2].equals("1000-1200"))
         {
-            if(now.getHour() == 18)
+            if(now.getHour() == 9) //9
             {
                 Toast.makeText(getApplicationContext(), "Reservation in one hour: " + r_array[0] + " " + r_array[2], Toast.LENGTH_SHORT).show();
             }
