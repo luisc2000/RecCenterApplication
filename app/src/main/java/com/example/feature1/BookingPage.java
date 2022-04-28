@@ -340,7 +340,8 @@ public class BookingPage extends AppCompatActivity
                 });
             }
         });
-        if(MapPage.notifs[0] == true)
+//        if(MapPage.notifs[0] == true)
+        if(MapPage.test == true)
         {
             documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
                 @RequiresApi(api = Build.VERSION_CODES.O)
@@ -364,7 +365,7 @@ public class BookingPage extends AppCompatActivity
                             timeReminder(r1_array);
 //                            TextView r1viewer = findViewById(R.id.view10);
 //                            String tt = r1viewer.getText().toString();
-                            //Toast.makeText(getApplicationContext(), "Reservation today: " + r1, Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getApplicationContext(), "Reservation today: " + r1, Toast.LENGTH_SHORT).show();
                         }
                     }
                     if(!r2.isEmpty())
@@ -373,7 +374,7 @@ public class BookingPage extends AppCompatActivity
                         if(r2_array[1].equals(today_String))
                         {
                             timeReminder(r2_array);
-                            //Toast.makeText(getApplicationContext(), "Reservation today: " + r2, Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getApplicationContext(), "Reservation today: " + r2, Toast.LENGTH_SHORT).show();
                         }
                     }
                     if(!r3.isEmpty())
@@ -382,7 +383,7 @@ public class BookingPage extends AppCompatActivity
                         if(r3_array[1].equals(today_String))
                         {
                             timeReminder(r3_array);
-                            //Toast.makeText(getApplicationContext(), "Reservation today: " + r3, Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getApplicationContext(), "Reservation today: " + r3, Toast.LENGTH_SHORT).show();
                         }
                     }
 
