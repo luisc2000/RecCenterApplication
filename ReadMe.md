@@ -14,11 +14,11 @@ From here click on a gym name and make a few reservations. This is feature 2. If
 Then push the booking button, to navigate to feature 3, the booking page. This page will display what you have booked, and move outdated bookings into previous bookings if the day has passed.
 
 ## Updated for section 2.5:
-Improved graphical user interface
-Improved theme
-Added switch button
-Added local storage implementation to switch button using shared preferences library
-Added reminder messages that will appear if it is currently the day of the reminder, and it is at least one hour prior to the appointment.
-(Ie if you have an appointment on April 27th, at 1000-1200, the message will trigger between 0900-959 on April 27th)
+* Improved graphical user interface
+* Improved theme
+* Added switch button
+* Added local storage implementation to switch button using shared preferences library
+* Added reminder messages that will appear if it is currently the day of the reminder, and it is at least one hour prior to the appointment.
+* (Ie if you have an appointment on April 27th, at 1000-1200, the message will trigger between 0900-959 on April 27th)
 
 Please let us know if you have any questions.
